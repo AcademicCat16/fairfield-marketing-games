@@ -1,0 +1,31 @@
+<div class="game">
+ <h1>Blackjack</h1>
+ <div class="bank">
+<p>Bank: $<span id="bank">1000</span></p>
+<p>Current Bet: $<span id="bet">0</span></p>
+ </div>
+ <div class="betting">
+<button class="bet-btn" data-amount="50">Bet $50</button>
+<button class="bet-btn" data-amount="100">Bet $100</button>
+<button class="bet-btn" data-amount="200">Bet $200</button>
+ </div>
+ <div class="table">
+<div>
+
+<h2>Dealer</h2>
+<div id="dealer-cards" class="cards"></div>
+<p id="dealer-score"></p>
+</div>
+<div>
+<h2>You</h2>
+<div id="player-cards" class="cards"></div>
+<p id="player-score"></p>
+</div>
+ </div>
+ <div class="controls">
+<button id="hit">Hit</button>
+<button id="stand">Stand</button>
+<button id="restart">New Hand</button>
+ </div>
+ <h2 id="result"></h2>
+</div>
