@@ -1,0 +1,45 @@
+body {
+background: #111;
+color: white;
+font-family: Arial, sans-serif;
+text-align: center;
+}
+#title {
+font-size: 50px;
+margin-top: 20px;
+background-image: linear-gradient(45deg, #ff004c, #ff8c00, #ffd000);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+#game {
+margin-top: 30px;
+}
+.cards {
+display: flex;
+justify-content: center;
+margin: 10px;
+}
+.card {
+width: 100px;
+height: 150px;
+border-radius: 10px;
+background-size: cover;
+background-position: center;
+margin: 5px;
+border: 2px solid #444;
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 26px;
+font-weight: bold;
+color: black;
+background-color: white;
+}
+.hidden-card {
+background-image: url("https://raw.githubusercontent.com/andrewbinck-cyber/gamea/
+refs/heads/main/Copilot_20260301_150610.png");
+background-size: cover;
+background-position: center;
+color: transparent;
+}
