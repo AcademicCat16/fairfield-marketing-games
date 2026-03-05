@@ -1,0 +1,201 @@
+<html lang="en">
+<head>
+<title>Xtreme Tic-Tac-Toe</title>
+<style>
+body {
+font-family: Helvetica;
+background-color: #111;
+color: #fff;
+}
+#xtremeTitle {
+padding-top: 10px;
+font-family: "arial black";
+font-size: 60px;
+font-weight: 1400;
+line-height: 60px;
+background-image: linear-gradient(45deg, #ff004c, #ff8c00, #ffd000);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+text-align: center;
+margin-bottom: 20px;
+}
+#tictactoe {
+padding-left: 0;
+padding-right: 0;
+margin-left: auto;
+margin-right: auto;
+display: block;
+border: 1px solid #582B90;
+width: 620px; /* fits 5 blocks */
+background-color: #222;
+}
+#center {
+position: absolute;
+left: 50%;
+pointer-events: none;
+}
+#reset {
+padding-left: 0;
+padding-right: 0;
+margin-left: auto;
+margin-right: auto;
+display: block;
+border: 1px solid black;
+width: 620px;
+height: 620px;
+position: relative;
+left: -50%;
+pointer-events: none;
+transition: background-color 1s;
+}
+#reset h1 {
+margin-top: 100px;
+color: white;
+text-align: center;
+}
+#resetButton {
+padding-left: 0;
+padding-right: 0;
+margin-left: auto;
+margin-right: auto;
+margin-top: 30px;
+display: block;
+border: 1px solid black;
+border-radius: 10px;
+width: 180px;
+padding: 10px;
+font-size: 32px;
+font-family: 'oswald', sans-serif;
+text-align: center;
+color: white;
+background-color: rgba(102, 102, 102, 0.8);
+cursor: pointer;
+pointer-events: all;
+display: none;
+}
+.block {
+width: 120px;
+height: 120px;
+border: 1px solid #555;
+display: inline-block;
+vertical-align: top;
+transition: background-color 0.2s;
+box-sizing: border-box;
+}
+</style>
+</head>
+<body>
+<div id="content">
+<h1 id="xtremeTitle">Xtreme Tic-Tac-Toe</h1>
+<div id="center">
+<div id="reset">
+<h1 id="gameOverText"></h1>
+<h2 id="resetButton">reset</h2>
+</div>
+</div>
+<div id="tictactoe"></div>
+</div>
+<script>
+// Run immediately in CodePen (no need for window.onload)
+(function () {
+var board = document.getElementById("tictactoe");
+// Create 25 blocks for a 5x5 board
+for (var i = 0; i < 25; i++) {
+var div = document.createElement("div");
+div.className = "block block" + i;
+board.appendChild(div);
+}
+var turn = 0,
+blocks = document.getElementsByClassName("block"),
+WINNING_MOVES = [
+// rows
+[0, 1, 2, 3, 4],
+[5, 6, 7, 8, 9],
+[10, 11, 12, 13, 14],
+[15, 16, 17, 18, 19],
+[20, 21, 22, 23, 24],
+// columns
+[0, 5, 10, 15, 20],
+[1, 6, 11, 16, 21],
+[2, 7, 12, 17, 22],
+[3, 8, 13, 18, 23],
+[4, 9, 14, 19, 24],
+// diagonals
+[0, 6, 12, 18, 24],
+[4, 8, 12, 16, 20],
+],
+gameRunning = true,
+playerOneColor = "rgb(119, 128, 241)",
+playerTwoColor = "rgb(69, 74, 138)",
+reset = document.getElementById("reset"),
+gameOver = document.getElementById("gameOverText"),
+resetButton = document.getElementById("resetButton"),
+checkBlock = 0;
+// Click handler
+for (var i = 0; i < blocks.length; i++) {
+blocks[i].onclick = function () {
+if (gameRunning) {
+setBlock(turn, this);
+}
+};
+}
+function setBlock(player, block) {
+if (player === 0 && block.style.backgroundColor != playerTwoColor) {
+block.style.backgroundColor = playerOneColor;
+turn = 1;
+block.taken = 0;
+} else if (player === 1 && block.style.backgroundColor != playerOneColor) {
+block.style.backgroundColor = playerTwoColor;
+turn = 0;
+block.taken = 1;
+} else return;
+checkForVictory(player);
+checkBlock++;
+checkTie();
+}
+function checkForVictory(playerToCheck) {
+for (var i = 0; i < WINNING_MOVES.length; i++) {
+var combo = WINNING_MOVES[i];
+if (
+blocks[combo[0]].taken == playerToCheck &&
+blocks[combo[1]].taken == playerToCheck &&
+blocks[combo[2]].taken == playerToCheck &&
+blocks[combo[3]].taken == playerToCheck &&
+blocks[combo[4]].taken == playerToCheck
+) {
+combo.forEach(function (index) {
+blocks[index].style.backgroundColor = "#5d914c";
+});
+reset.style.backgroundColor = "rgba(100, 100, 100, 0.7)";
+gameOver.innerHTML = "Player " + (playerToCheck + 1) + " wins!";
+resetButton.style.display = "block";
+gameRunning = false;
+checkBlock = 0;
+}
+}
+}
+function checkTie() {
+if (checkBlock === 25 && gameRunning) {
+gameRunning = false;
+reset.style.backgroundColor = "rgba(100, 100, 100, 0.7)";
+gameOver.innerHTML = "It's a tie!";
+resetButton.style.display = "block";
+}
+}
+resetButton.onclick = function () {
+for (var i = 0; i < blocks.length; i++) {
+blocks[i].style.backgroundColor = "transparent";
+blocks[i].taken = null;
+}
+reset.style.backgroundColor = "rgba(100, 100, 100, 0.0)";
+gameOver.innerHTML = "";
+resetButton.style.display = "none";
+turn = 0;
+gameRunning = true;
+checkBlock = 0;
+};
+})();
+</script>
+</body>
+</html>
