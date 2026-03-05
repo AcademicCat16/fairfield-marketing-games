@@ -1,0 +1,13 @@
+body {
+font-family: Arial;
+text-align: center;
+background-color: #f4f4f4;
+}
+#box {
+width: 100px;
+height: 100px;
+background-color: gold;
+border-radius: 50%;
+margin: 40px auto;
+cursor: pointer;
+}
