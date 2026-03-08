@@ -1,0 +1,66 @@
+body {
+background: #0D8584;
+font-family: Verdana, sans-serif;
+display: flex;
+justify-content: center;
+margin-top: 40px;
+}
+.game-wrapper {
+text-align: center;
+}
+.controls {
+margin-bottom: 10px;
+}
+button {
+margin: 3px;
+padding: 5px 10px;
+cursor: pointer;
+}
+#status-bar {
+display: flex;
+justify-content: space-between;
+background: #C0C0C0;
+padding: 5px;
+margin-bottom: 5px;
+font-weight: bold;
+}
+#bomb-counter, #timer {
+background: black;
+color: red;
+padding: 5px;
+width: 60px;
+}
+#reset {
+cursor: pointer;
+}
+td {
+width: 24px;
+height: 24px;
+background: #C0C0C0;
+border: 2px solid;
+border-top-color: white;
+border-left-color: white;
+border-right-color: #7B7B7B;
+border-bottom-color: #7B7B7B;
+text-align: center;
+vertical-align: middle;
+font-weight: bold;
+cursor: pointer;
+transition: all 0.15s ease;
+}
+td.revealed {
+background: #DDD;
+border: 1px solid #999;
+animation: pop 0.15s ease-out;
+}
+@keyframes pop {
+from { transform: scale(0.8); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+0% { transform: translateX(0); }
+25% { transform: translateX(-3px); }
+50% { transform: translateX(3px); }
+75% { transform: translateX(-3px); }
+100% { transform: translateX(0); }
+}
