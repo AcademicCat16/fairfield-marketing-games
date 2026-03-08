@@ -1,0 +1,20 @@
+body {
+  background: black;
+  color: #aaa;
+  font-family: Arial, sans-serif;
+}
+
+#sidebar {
+  width: 200px;
+  float: left;
+  padding: 10px;
+  background: #333;
+  color: white;
+}
+
+#game {
+  border: 2px solid white;
+  background: black;
+  display: block;
+  margin-left: 220px;
+}
