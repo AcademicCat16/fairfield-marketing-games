@@ -1,0 +1,40 @@
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #00704A;
+    color: white;
+}
+button {
+    padding: 20px;
+    font-size: 18px;
+    background-color: white;
+    color: #00704A;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+#score {
+    font-size: 24px;
+    margin-top: 20px;
+}
+</style>
+
+<h1>Starbucks Rewards Challenge</h1>
+<p>Click to serve coffee and earn reward points!</p>
+<button onclick="earnPoints()">Serve Coffee</button>
+<div id="score">Points: 0</div>
+<div id="level">Level: New Customer</div>
+
+<script>
+let points = 0;
+function earnPoints() {
+    points += 10;
+    if(points >= 100){
+        document.getElementById("level").innerHTML = "Level: Gold Member";
+    } else if(points >= 50){
+        document.getElementById("level").innerHTML = "Level: Loyal Customer";
+    }
+    document.getElementById("score").innerHTML = "Points: " + points;
+}
+</script>
