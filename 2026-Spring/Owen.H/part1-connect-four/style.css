@@ -1,0 +1,28 @@
+body {
+background: #1e1e1e;
+color: white;
+text-align: center;
+font-family: Arial, sans-serif;
+}
+.grid {
+display: grid;
+grid-template-columns: repeat(7, 70px);
+grid-template-rows: repeat(6, 70px);
+gap: 8px;
+background: #0044cc;
+padding: 10px;
+margin: 20px auto;
+width: max-content;
+border-radius: 10px;
+}
+.cell {
+background: white;
+border-radius: 50%;
+cursor: pointer;
+}
+.red {
+background: red;
+}
+.yellow {
+background: yellow;
+}
