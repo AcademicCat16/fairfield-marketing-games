@@ -1,0 +1,753 @@
+Game Website: file:///C:/Users/willm/Downloads/ocean-trivia-game.html
+Code:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEEP DIVE — Ocean Trivia</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
+<style>
+:root {
+--surface: #0a1628;
+--zone1: #0d2b4a;
+--zone2: #092240;
+--zone3: #061830;
+--zone4: #030e1e;
+--abyss: #010610;
+--accent: #00e5ff;
+--accent2: #ff6b6b;
+--gold: #ffd166;
+--text: #cce8f4;
+--dim: #4a7fa0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+background: var(--surface);
+color: var(--text);
+font-family: 'Space Mono', monospace;
+min-height: 100vh;
+overflow-x: hidden;
+position: relative;
+}
+/* Animated water background */
+body::before {
+content: '';
+position: fixed;
+inset: 0;
+background:
+radial-gradient(ellipse at 20% 20%, rgba(0,100,180,0.15) 0%, transparent 60%),
+radial-gradient(ellipse at 80% 80%, rgba(0,50,120,0.2) 0%, transparent 60%),
+linear-gradient(180deg, #0a1628 0%, #030e1e 100%);
+z-index: 0;
+pointer-events: none;
+}
+/* Floating particles */
+.particles {
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+overflow: hidden;
+}
+.particle {
+position: absolute;
+width: 3px;
+height: 3px;
+background: rgba(0, 229, 255, 0.4);
+border-radius: 50%;
+animation: float linear infinite;
+}
+@keyframes float {
+0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+10% { opacity: 1; }
+90% { opacity: 1; }
+100% { transform: translateY(-100px) translateX(30px); opacity: 0; }
+}
+.game-wrapper {
+position: relative;
+z-index: 1;
+max-width: 720px;
+margin: 0 auto;
+padding: 20px;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+/* HEADER */
+.header {
+text-align: center;
+margin-bottom: 30px;
+animation: fadeDown 0.8s ease;
+}
+@keyframes fadeDown {
+from { opacity: 0; transform: translateY(-20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+.header h1 {
+font-family: 'Playfair Display', serif;
+font-size: clamp(42px, 8vw, 72px);
+color: var(--accent);
+text-shadow: 0 0 40px rgba(0,229,255,0.4), 0 0 80px rgba(0,229,255,0.15);
+letter-spacing: 4px;
+line-height: 1;
+}
+.header .subtitle {
+font-size: 11px;
+letter-spacing: 6px;
+color: var(--dim);
+margin-top: 8px;
+text-transform: uppercase;
+}
+/* DEPTH METER */
+.depth-bar-container {
+width: 100%;
+margin-bottom: 24px;
+animation: fadeDown 0.8s ease 0.1s both;
+}
+.depth-label {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 8px;
+font-size: 11px;
+letter-spacing: 3px;
+color: var(--dim);
+text-transform: uppercase;
+}
+.depth-value {
+color: var(--accent);
+font-size: 13px;
+font-weight: 700;
+}
+.depth-track {
+height: 6px;
+background: rgba(255,255,255,0.05);
+border-radius: 3px;
+border: 1px solid rgba(0,229,255,0.1);
+overflow: hidden;
+position: relative;
+}
+.depth-fill {
+height: 100%;
+background: linear-gradient(90deg, var(--accent), #0080aa);
+border-radius: 3px;
+transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+position: relative;
+box-shadow: 0 0 10px var(--accent);
+}
+/* ZONE LABEL */
+.zone-label {
+text-align: center;
+margin-bottom: 20px;
+padding: 8px 20px;
+border: 1px solid rgba(0,229,255,0.15);
+border-radius: 20px;
+display: inline-block;
+font-size: 11px;
+letter-spacing: 4px;
+color: var(--accent);
+text-transform: uppercase;
+background: rgba(0,229,255,0.04);
+animation: fadeDown 0.8s ease 0.2s both;
+}
+/* STATS ROW */
+.stats-row {
+display: flex;
+gap: 16px;
+width: 100%;
+margin-bottom: 24px;
+animation: fadeDown 0.8s ease 0.2s both;
+}
+.stat-box {
+flex: 1;
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(0,229,255,0.1);
+border-radius: 8px;
+padding: 12px;
+text-align: center;
+}
+.stat-box .stat-num {
+font-family: 'Playfair Display', serif;
+font-size: 28px;
+color: var(--gold);
+line-height: 1;
+}
+.stat-box .stat-lbl {
+font-size: 9px;
+letter-spacing: 3px;
+color: var(--dim);
+text-transform: uppercase;
+margin-top: 4px;
+}
+/* QUESTION CARD */
+.question-card {
+width: 100%;
+background: rgba(10, 35, 65, 0.6);
+border: 1px solid rgba(0, 229, 255, 0.15);
+border-radius: 16px;
+padding: 32px;
+margin-bottom: 20px;
+backdrop-filter: blur(10px);
+box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+animation: cardIn 0.5s ease;
+}
+@keyframes cardIn {
+from { opacity: 0; transform: translateY(20px) scale(0.97); }
+to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.question-num {
+font-size: 10px;
+letter-spacing: 4px;
+color: var(--dim);
+text-transform: uppercase;
+margin-bottom: 16px;
+}
+.creature-emoji {
+font-size: 48px;
+margin-bottom: 16px;
+display: block;
+filter: drop-shadow(0 0 20px rgba(0,229,255,0.3));
+animation: bob 3s ease-in-out infinite;
+}
+@keyframes bob {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-8px); }
+}
+.question-text {
+font-size: 16px;
+line-height: 1.6;
+color: var(--text);
+font-weight: 700;
+}
+/* OPTIONS */
+.options-grid {
+width: 100%;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+margin-bottom: 20px;
+animation: fadeDown 0.5s ease 0.1s both;
+}
+.option-btn {
+background: rgba(255,255,255,0.03);
+border: 1px solid rgba(0,229,255,0.15);
+border-radius: 10px;
+padding: 16px 12px;
+color: var(--text);
+font-family: 'Space Mono', monospace;
+font-size: 12px;
+line-height: 1.4;
+cursor: pointer;
+transition: all 0.2s ease;
+text-align: left;
+position: relative;
+overflow: hidden;
+}
+.option-btn::before {
+content: '';
+position: absolute;
+inset: 0;
+background: var(--accent);
+opacity: 0;
+transition: opacity 0.2s;
+}
+.option-btn:hover:not(:disabled) {
+border-color: var(--accent);
+background: rgba(0,229,255,0.06);
+transform: translateY(-2px);
+box-shadow: 0 8px 20px rgba(0,229,255,0.1);
+}
+.option-btn.correct {
+border-color: #00ff88;
+background: rgba(0,255,136,0.08);
+color: #00ff88;
+animation: correctPulse 0.4s ease;
+}
+@keyframes correctPulse {
+0% { transform: scale(1); }
+50% { transform: scale(1.03); }
+100% { transform: scale(1); }
+}
+.option-btn.wrong {
+border-color: var(--accent2);
+background: rgba(255,107,107,0.08);
+color: var(--accent2);
+animation: shake 0.4s ease;
+}
+@keyframes shake {
+0%, 100% { transform: translateX(0); }
+25% { transform: translateX(-6px); }
+75% { transform: translateX(6px); }
+}
+.option-btn:disabled { cursor: default; }
+.option-letter {
+display: inline-block;
+width: 20px;
+height: 20px;
+background: rgba(0,229,255,0.1);
+border-radius: 4px;
+text-align: center;
+line-height: 20px;
+font-size: 10px;
+color: var(--accent);
+margin-right: 8px;
+font-weight: 700;
+flex-shrink: 0;
+}
+/* FEEDBACK */
+.feedback {
+width: 100%;
+padding: 16px 20px;
+border-radius: 10px;
+font-size: 13px;
+line-height: 1.5;
+margin-bottom: 20px;
+animation: fadeDown 0.3s ease;
+display: none;
+}
+.feedback.show { display: block; }
+.feedback.correct-fb {
+background: rgba(0,255,136,0.06);
+border: 1px solid rgba(0,255,136,0.2);
+color: #7fffc4;
+}
+.feedback.wrong-fb {
+background: rgba(255,107,107,0.06);
+border: 1px solid rgba(255,107,107,0.2);
+color: #ffaaaa;
+}
+/* NEXT BUTTON */
+.next-btn {
+display: none;
+width: 100%;
+padding: 16px;
+background: var(--accent);
+border: none;
+border-radius: 10px;
+color: #000;
+font-family: 'Space Mono', monospace;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 3px;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.2s ease;
+animation: fadeDown 0.3s ease;
+}
+.next-btn.show { display: block; }
+.next-btn:hover { background: #33eeff; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,229,255,0.3); }
+/* SCREEN OVERLAYS */
+.screen {
+position: fixed;
+inset: 0;
+z-index: 100;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 40px 20px;
+text-align: center;
+background: rgba(5, 15, 35, 0.97);
+backdrop-filter: blur(20px);
+}
+.screen.hidden { display: none; }
+.screen h2 {
+font-family: 'Playfair Display', serif;
+font-size: clamp(36px, 8vw, 64px);
+color: var(--accent);
+text-shadow: 0 0 40px rgba(0,229,255,0.4);
+margin-bottom: 12px;
+}
+.screen p {
+color: var(--dim);
+font-size: 12px;
+letter-spacing: 3px;
+text-transform: uppercase;
+max-width: 400px;
+line-height: 1.8;
+margin-bottom: 8px;
+}
+.big-score {
+font-family: 'Playfair Display', serif;
+font-size: 80px;
+color: var(--gold);
+text-shadow: 0 0 40px rgba(255,209,102,0.4);
+margin: 20px 0;
+line-height: 1;
+}
+.rank-badge {
+font-size: 48px;
+margin: 10px 0;
+}
+.rank-title {
+font-family: 'Playfair Display', serif;
+font-size: 22px;
+color: var(--gold);
+margin-bottom: 20px;
+}
+.start-btn, .restart-btn {
+margin-top: 30px;
+padding: 16px 48px;
+background: transparent;
+border: 2px solid var(--accent);
+border-radius: 50px;
+color: var(--accent);
+font-family: 'Space Mono', monospace;
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 4px;
+text-transform: uppercase;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+.start-btn:hover, .restart-btn:hover {
+background: var(--accent);
+color: #000;
+box-shadow: 0 0 40px rgba(0,229,255,0.3);
+}
+/* Lives */
+.lives {
+display: flex;
+gap: 6px;
+}
+.life { font-size: 16px; transition: all 0.3s; }
+.life.lost { filter: grayscale(1); opacity: 0.3; transform: scale(0.8); }
+/* Divider */
+.divider {
+width: 60px;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--accent), transparent);
+margin: 16px auto;
+}
+.final-stats {
+display: flex;
+gap: 30px;
+margin: 10px 0 20px;
+justify-content: center;
+}
+.final-stat {
+text-align: center;
+}
+.final-stat .num {
+font-family: 'Playfair Display', serif;
+font-size: 36px;
+color: var(--gold);
+display: block;
+}
+.final-stat .lbl {
+font-size: 9px;
+letter-spacing: 3px;
+color: var(--dim);
+text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+<!-- Particles -->
+<div class="particles" id="particles"></div>
+<!-- START SCREEN -->
+<div class="screen" id="startScreen">
+<div style="font-size:72px; margin-bottom:10px; animation: bob 3s ease-in-out infinite;"> </div>
+<h2>DEEP DIVE</h2>
+<div class="divider"></div>
+<p>Answer trivia questions to descend into the ocean's darkest depths</p>
+<p style="margin-top:8px; color: #4a7fa0;">10 questions · 3 lives · dive deeper with every correct answer</p>
+<button class="start-btn" onclick="startGame()">BEGIN DESCENT</button>
+</div>
+<!-- END SCREEN -->
+<div class="screen hidden" id="endScreen">
+<div class="rank-badge" id="rankBadge"></div>
+<h2>DIVE COMPLETE</h2>
+<div class="rank-title" id="rankTitle"></div>
+<div class="divider"></div>
+<div class="big-score" id="finalScore"></div>
+<div class="final-stats">
+<div class="final-stat"><span class="num" id="finalCorrect"></span><span class="lbl">Correct</span></div>
+<div class="final-stat"><span class="num" id="finalDepth"></span><span class="lbl">Max Depth</span></div>
+</div>
+<p id="rankDesc"></p>
+<button class="restart-btn" onclick="restartGame()">DIVE AGAIN</button>
+</div>
+<!-- MAIN GAME -->
+<div class="game-wrapper" id="gameArea">
+<div class="header">
+<h1>DEEP DIVE</h1>
+<div class="subtitle">Ocean Trivia Challenge</div>
+</div>
+<div class="depth-bar-container">
+<div class="depth-label">
+<span>SURFACE</span>
+<span class="depth-value" id="depthLabel">0m</span>
+<span>ABYSS</span>
+</div>
+<div class="depth-track">
+<div class="depth-fill" id="depthFill" style="width:0%"></div>
+</div>
+</div>
+<div style="display:flex; align-items:center; justify-content:space-between; width:100%; margin-bottom:20px;">
+<div class="zone-label" id="zoneLabel">Sunlight Zone</div>
+<div class="lives" id="livesDisplay"></div>
+</div>
+<div class="stats-row">
+<div class="stat-box">
+<div class="stat-num" id="scoreDisplay">0</div>
+<div class="stat-lbl">Score</div>
+</div>
+<div class="stat-box">
+<div class="stat-num" id="questionNum">1/10</div>
+<div class="stat-lbl">Question</div>
+</div>
+<div class="stat-box">
+<div class="stat-num" id="streakDisplay">0</div>
+<div class="stat-lbl">Streak </div>
+</div>
+</div>
+<div class="question-card" id="questionCard">
+<div class="question-num" id="questionZoneLabel">Zone 1 — Sunlight Zone</div>
+<span class="creature-emoji" id="creatureEmoji"> </span>
+<div class="question-text" id="questionText">Loading...</div>
+</div>
+<div class="options-grid" id="optionsGrid"></div>
+<div class="feedback" id="feedback"></div>
+<button class="next-btn" id="nextBtn" onclick="nextQuestion()">DIVE DEEPER →</button>
+</div>
+<script>
+// ============================================================
+// QUESTIONS — 10 deep-sea/ocean trivia questions
+// ============================================================
+const allQuestions = [
+{
+zone: 1, creature: " ",
+q: "What is the largest ocean on Earth?",
+opts: ["Atlantic Ocean","Pacific Ocean","Indian Ocean","Arctic Ocean"],
+ans: 1,
+fact: "The Pacific Ocean covers about 165 million km² — more than all the world's landmasses combined!"
+},
+{
+zone: 1, creature: " ",
+q: "How much of Earth's surface does the ocean cover?",
+opts: ["50%","60%","71%","85%"],
+ans: 2,
+fact: "About 71% of Earth's surface is covered by ocean, making our planet appear blue from space."
+},
+{
+zone: 2, creature: " ",
+q: "What is the name of the deepest known point in the ocean?",
+opts: ["Mariana Trench","Java Trench","Puerto Rico Trench","Tonga Trench"],
+ans: 0,
+fact: "The Challenger Deep in the Mariana Trench is ~11,000 meters deep — you could fit Mount Everest inside it!"
+},
+{
+zone: 2, creature: " ",
+q: "Which animal has three hearts and blue blood?",
+opts: ["Shark","Dolphin","Octopus","Sea Turtle"],
+ans: 2,
+fact: "Octopuses have 3 hearts — two pump blood through the gills, one pumps it through the body. Their blood is blue due to copper-based hemocyanin."
+},
+{
+zone: 3, creature: " ",
+q: "What percentage of the ocean has been explored by humans?",
+opts: ["About 5%","About 25%","About 50%","About 80%"],
+ans: 0,
+fact: "Only about 5% of Earth's oceans have been explored! More people have walked on the Moon than descended to the Mariana Trench."
+},
+{
+zone: 3, creature: " ",
+q: "What is bioluminescence?",
+opts: ["Deep sea pressure","Light produced by living organisms","Salt concentration in water","Underwater volcanic activity"],
+ans: 1,
+fact: "Over 70% of deep-sea creatures produce their own light — bioluminescence! It's used for hunting, camouflage, and communication."
+},
+{
+zone: 4, creature: " ",
+q: "What drives the ocean's global conveyor belt (thermohaline circulation)?",
+opts: ["Wind patterns only","Temperature and salinity differences","Moon's gravitational pull","Volcanic activity"],
+ans: 1,
+fact: "The thermohaline circulation is driven by differences in water temperature and salt content, moving heat around the entire planet over ~1,000 years."
+},
+{
+zone: 4, creature: " ",
+q: "Which ocean current keeps Western Europe warmer than other regions at the same latitude?",
+opts: ["California Current","Humboldt Current","Gulf Stream","Labrador Current"],
+ans: 2,
+fact: "The Gulf Stream transports warm water from the tropics to Northern Europe, keeping cities like London 5–10°C warmer than expected."
+},
+{
+zone: 5, creature: "🦭",
+q: "What is the 'midnight zone' of the ocean (bathypelagic zone) typically defined as?",
+opts: ["0–200m","200–1,000m","1,000–4,000m","4,000–6,000m"],
+ans: 2,
+fact: "The bathypelagic 'midnight zone' (1,000–4,000m) receives no sunlight at all. Creatures here have evolved remarkable adaptations like huge eyes and bioluminescence."
+},
+{
+zone: 5, creature: " ",
+q: "Hydrothermal vents support entire ecosystems. What do they primarily release?",
+opts: ["Oxygen and sugar","Superheated water rich in minerals","Cold fresh water","Nitrogen gas"],
+ans: 1,
+fact: "Hydrothermal vents release superheated water (up to 400°C) loaded with minerals. Life here is powered by chemosynthesis — not sunlight — a remarkable discovery that changed our understanding of life's possibilities."
+}
+];
+const zones = [
+{ name: "Sunlight Zone", depth: "0–200m", color: "#00e5ff" },
+{ name: "Sunlight Zone", depth: "0–200m", color: "#00e5ff" },
+{ name: "Twilight Zone", depth: "200–1,000m", color: "#0099cc" },
+{ name: "Twilight Zone", depth: "200–1,000m", color: "#0099cc" },
+{ name: "Midnight Zone", depth: "1,000–4,000m", color: "#005588" },
+{ name: "Midnight Zone", depth: "1,000–4,000m", color: "#005588" },
+{ name: "Abyssal Zone", depth: "4,000–6,000m", color: "#003355" },
+{ name: "Abyssal Zone", depth: "4,000–6,000m", color: "#003355" },
+{ name: "The Abyss", depth: "6,000m+", color: "#001122" },
+{ name: "The Abyss", depth: "6,000m+", color: "#001122" },
+];
+const depthValues = [0, 200, 1000, 2000, 3000, 4000, 5000, 6000, 8000, 11000];
+const ranks = [
+{ min: 9, badge: " ", title: "Abyss Master", desc: "You dove to the deepest trench. Extraordinary knowledge!" },
+{ min: 7, badge: " ", title: "Deep Sea Expert", desc: "You navigated the midnight zone with skill." },
+{ min: 5, badge: " ", title: "Twilight Diver", desc: "You reached the twilight zone. Keep exploring!" },
+{ min: 3, badge: " ", title: "Surface Swimmer", desc: "You stayed near the surface. The depths await!" },
+{ min: 0, badge: " ", title: "Rookie Diver", desc: "The ocean has many secrets left for you to discover!" },
+];
+let currentQ = 0;
+let score = 0;
+let lives = 3;
+let streak = 0;
+let correct = 0;
+let answered = false;
+let questions = [];
+function shuffle(arr) {
+return [...arr].sort(() => Math.random() - 0.5);
+}
+function createParticles() {
+const container = document.getElementById('particles');
+for (let i = 0; i < 30; i++) {
+const p = document.createElement('div');
+p.className = 'particle';
+p.style.left = Math.random() * 100 + '%';
+p.style.animationDuration = (8 + Math.random() * 12) + 's';
+p.style.animationDelay = (Math.random() * 15) + 's';
+p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+p.style.opacity = 0.2 + Math.random() * 0.4;
+container.appendChild(p);
+}
+}
+function startGame() {
+questions = shuffle(allQuestions).slice(0, 10);
+currentQ = 0; score = 0; lives = 3; streak = 0; correct = 0;
+document.getElementById('startScreen').classList.add('hidden');
+updateLives();
+showQuestion();
+}
+function updateLives() {
+const d = document.getElementById('livesDisplay');
+d.innerHTML = '';
+for (let i = 0; i < 3; i++) {
+const s = document.createElement('span');
+s.className = 'life' + (i >= lives ? ' lost' : '');
+s.textContent = '🦭';
+d.appendChild(s);
+}
+}
+function showQuestion() {
+answered = false;
+const q = questions[currentQ];
+const zoneIdx = Math.min(currentQ, zones.length - 1);
+const zone = zones[zoneIdx];
+const depth = depthValues[zoneIdx];
+// Update depth bar
+const pct = (zoneIdx / 9) * 100;
+document.getElementById('depthFill').style.width = pct + '%';
+document.getElementById('depthLabel').textContent = depth + 'm';
+document.getElementById('zoneLabel').textContent = zone.name;
+document.getElementById('questionNum').textContent = (currentQ + 1) + '/10';
+document.getElementById('scoreDisplay').textContent = score;
+document.getElementById('streakDisplay').textContent = streak;
+document.getElementById('questionZoneLabel').textContent = `Zone ${zoneIdx + 1} — ${zone.name} (${zone.depth})`;
+document.getElementById('creatureEmoji').textContent = q.creature;
+document.getElementById('questionText').textContent = q.q;
+const grid = document.getElementById('optionsGrid');
+grid.innerHTML = '';
+const letters = ['A','B','C','D'];
+q.opts.forEach((opt, i) => {
+const btn = document.createElement('button');
+btn.className = 'option-btn';
+btn.innerHTML = `<span class="option-letter">${letters[i]}</span>${opt}`;
+btn.onclick = () => selectAnswer(i);
+grid.appendChild(btn);
+});
+// Reset feedback
+const fb = document.getElementById('feedback');
+fb.className = 'feedback';
+fb.textContent = '';
+document.getElementById('nextBtn').className = 'next-btn';
+// Animate card in
+const card = document.getElementById('questionCard');
+card.style.animation = 'none';
+card.offsetHeight;
+card.style.animation = 'cardIn 0.5s ease';
+}
+function selectAnswer(idx) {
+if (answered) return;
+answered = true;
+const q = questions[currentQ];
+const btns = document.querySelectorAll('.option-btn');
+btns.forEach(b => b.disabled = true);
+const fb = document.getElementById('feedback');
+if (idx === q.ans) {
+btns[idx].classList.add('correct');
+streak++;
+correct++;
+const bonus = streak >= 3 ? 150 : streak >= 2 ? 120 : 100;
+score += bonus;
+document.getElementById('scoreDisplay').textContent = score;
+document.getElementById('streakDisplay').textContent = streak;
+fb.className = 'feedback correct-fb show';
+fb.innerHTML = ` Correct! ${streak >= 2 ? `<strong>+${bonus} pts (${streak}x streak!)</strong>` : `+${bonus} pts`}<br><small style="opacity:0.8; margin-top:6px; display:block;">${q.fact}</small>`;
+} else {
+btns[idx].classList.add('wrong');
+btns[q.ans].classList.add('correct');
+streak = 0;
+lives--;
+document.getElementById('streakDisplay').textContent = streak;
+updateLives();
+fb.className = 'feedback wrong-fb show';
+fb.innerHTML = ` Not quite! The answer was: <strong>${q.opts[q.ans]}</strong><br><small style="opacity:0.8; margin-top:6px; display:block;">${q.fact}</small>`;
+}
+const nextBtn = document.getElementById('nextBtn');
+nextBtn.className = 'next-btn show';
+if (currentQ === 9) {
+nextBtn.textContent = lives === 0 ? 'SEE RESULTS →' : 'SURFACE →';
+} else if (lives === 0) {
+nextBtn.textContent = 'GAME OVER →';
+} else {
+nextBtn.textContent = 'DIVE DEEPER →';
+}
+}
+function nextQuestion() {
+if (lives === 0 || currentQ === 9) {
+showEndScreen();
+return;
+}
+currentQ++;
+showQuestion();
+}
+function showEndScreen() {
+const rank = ranks.find(r => correct >= r.min) || ranks[ranks.length - 1];
+document.getElementById('rankBadge').textContent = rank.badge;
+document.getElementById('rankTitle').textContent = rank.title;
+document.getElementById('finalScore').textContent = score;
+document.getElementById('finalCorrect').textContent = correct + '/10';
+document.getElementById('finalDepth').textContent = depthValues[Math.min(currentQ, 9)] + 'm';
+document.getElementById('rankDesc').textContent = rank.desc;
+document.getElementById('endScreen').classList.remove('hidden');
+}
+function restartGame() {
+document.getElementById('endScreen').classList.add('hidden');
+startGame();
+}
+createParticles();
+</script>
+</body>
+</html>
