@@ -1,0 +1,44 @@
+<style>
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #111;
+    color: white;
+}
+button {
+    padding: 15px;
+    font-size: 18px;
+    background-color: limegreen;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+#streak {
+    font-size: 24px;
+    margin-top: 20px;
+}
+#message {
+    margin-top: 15px;
+}
+</style>
+
+<h1>30-Day Fitness Streak</h1>
+<p>Click once per workout session to build your streak!</p>
+<button onclick="workout()">Complete Workout</button>
+<div id="streak">Current Streak: 0</div>
+<div id="level">Level: Beginner</div>
+<div id="message"></div>
+
+<script>
+let streak = 0;
+function workout(){
+    streak++;
+    if(streak >= 20){
+        document.getElementById("level").innerHTML = "Level: Elite Athlete";
+    } else if(streak >= 10){
+        document.getElementById("level").innerHTML = "Level: Dedicated";
+    }
+    document.getElementById("streak").innerHTML = "Current Streak: " + streak;
+    document.getElementById("message").innerHTML = "Keep going! Consistency builds habits.";
+}
+</script>
