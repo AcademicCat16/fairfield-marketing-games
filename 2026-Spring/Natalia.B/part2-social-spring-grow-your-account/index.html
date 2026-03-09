@@ -1,0 +1,119 @@
+<div class="app">
+  <!-- LEFT: GAME -->
+  <section class="panel">
+    <div class="header">
+      <div>
+        <h1>Social Sprint — Grow Your Account</h1>
+        <p class="sub">Post content, build engagement, and spend it on boosts. Reach the follower goal before the clock hits 0.</p>
+      </div>
+      <div class="pill">
+        <span id="timeText">60</span>s
+        &nbsp;•&nbsp; Goal: <span id="goalText">250</span>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">👥 Followers</div>
+        <div class="value" id="followersText">0</div>
+        <div class="tiny">Win when you hit the goal.</div>
+      </div>
+      <div class="stat">
+        <div class="label">❤️ Engagement</div>
+        <div class="value" id="engagementText">0</div>
+        <div class="tiny">Spend this on boosts.</div>
+      </div>
+      <div class="stat">
+        <div class="label">🔥 Streak</div>
+        <div class="value" id="streakText">0</div>
+        <div class="tiny">Post fast to stack bonuses.</div>
+      </div>
+    </div>
+    <div class="arena" id="arena">
+      <div class="meter-wrap">
+        <div class="meter-label">
+          <span>Progress</span>
+          <span id="progressText">0 / 250</span>
+        </div>
+        <div class="meter"><div class="bar" id="progressBar"></div></div>
+        <div class="meter-label">
+          <span>Boost (Ad Campaign)</span>
+          <span id="boostText">Inactive</span>
+        </div>
+        <div class="meter"><div class="bar" id="boostBar"></div></div>
+      </div>
+      <div class="row">
+        <button class="btn-post" id="postBtn">📤 Post</button>
+        <button class="btn-boost" id="boostBtn">🚀 Boost (cost 30)</button>
+        <button class="btn-reset" id="resetBtn">🔄 Restart</button>
+      </div>
+      <div class="row" style="margin-top:12px;">
+        <button class="btn-small" id="easyBtn">Easy</button>
+        <button class="btn-small" id="normalBtn">Normal</button>
+        <button class="btn-small" id="hardBtn">Hard</button>
+        <span class="pill">Tip: Boost multiplies your next posts.</span>
+      </div>
+      <div class="toast" id="toast">
+        <div class="msg" id="toastMsg">Event!</div>
+        <div class="tag" id="toastTag">INFO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: INFO -->
+  <aside class="panel">
+    <div class="feed">
+      <div class="card">
+        <h2>How to Play</h2>
+        <p>
+          Click <b>Post</b> to gain followers + engagement.
+          Keep posting quickly to build a <b>streak</b>.
+          Spend <b>30 engagement</b> on <b>Boost</b> to multiply growth for a few seconds.
+        </p>
+      </div>
+      <div class="card">
+        <h2>Strategy</h2>
+        <p>
+          Save engagement for boosts, then post rapidly during the boost window.
+          Watch out for random events (algorithm changes, trending audio, etc.).
+        </p>
+      </div>
+      <div class="card">
+        <h2>What You Can Say in Your Write-Up</h2>
+        <p>
+          This game simulates attention economics: content output + engagement feedback loops + paid amplification.
+          Players must choose between immediate posting or saving resources for higher ROI boosts.
+        </p>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<!-- END MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <h3 id="endTitle">You finished!</h3>
+    <p class="sub" id="endSubtitle">Results:</p>
+    <div class="grid">
+      <div class="kpi">
+        <div class="k">Final Followers</div>
+        <div class="v" id="kpiFollowers">0</div>
+      </div>
+      <div class="kpi">
+        <div class="k">Total Posts</div>
+        <div class="v" id="kpiPosts">0</div>
+      </div>
+      <div class="kpi">
+        <div class="k">Best Streak</div>
+        <div class="v" id="kpiStreak">0</div>
+      </div>
+      <div class="kpi">
+        <div class="k">Boosts Used</div>
+        <div class="v" id="kpiBoosts">0</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn-post" id="playAgainBtn">▶ Play Again</button>
+      <button class="btn-reset" id="closeBtn">Close</button>
+    </div>
+  </div>
+</div>
