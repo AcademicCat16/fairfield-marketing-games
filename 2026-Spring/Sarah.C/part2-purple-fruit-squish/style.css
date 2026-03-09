@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  background: linear-gradient(135deg, #2b0040, #5c1a87, #a855f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+
+#game {
+  width: 800px;
+  height: 500px;
+  background: #3a0066;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(255, 150, 255, .6);
+  position: relative;
+  overflow: hidden;
+}
+
+h1 {
+  text-align: center;
+  margin: 10px;
+  color: #ffd6ff;
+}
+
+#info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  font-size: 20px;
+}
+
+.fruit {
+  position: absolute;
+  font-size: 40px;
+  cursor: pointer;
+  user-select: none;
+  transition: .15s;
+}
+
+.fruit:hover {
+  transform: scale(1.2);
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 40px;
+  visibility: hidden;
+}
+
+button {
+  background: #d946ef;
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background: #f472b6;
+}
