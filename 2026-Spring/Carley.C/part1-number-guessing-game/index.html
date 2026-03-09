@@ -1,0 +1,22 @@
+<div class="game-container">
+<h1>Guessing Game</h1>
+<p>Guess a number between 1 and 100</p>
+<div id="game-ui">
+<div class="input-group">
+<input type="number" id="guessInput" placeholder="Enter guess">
+<button onclick="makeGuess()">Submit</button>
+</div>
+<p id="feedback"></p>
+<p id="attempts">Attempt: 1</p>
+</div>
+<div id="highscore-ui" style="display:none;">
+<p id="result-msg"></p>
+<input type="text" id="nameInput" placeholder="Please enter your name">
+<button onclick="saveScore()">Save & View Scores</button>
+</div>
+<div id="scores-display" style="display:none;">
+<h3>Previous High Scores</h3>
+<ul id="scoresList"></ul>
+<button onclick="resetGame()">Play Again</button>
+</div>
+</div>
