@@ -1,0 +1,24 @@
+<div class="game-container">
+  <h1>🏓 Ball Bounce</h1>
+  <div class="score-board">
+    <div class="score-item">
+      <label>Player (Left)</label>
+      <div class="score" id="playerScore">0</div>
+    </div>
+    <div class="score-item">
+      <label>Computer (Right)</label>
+      <div class="score" id="computerScore">0</div>
+    </div>
+  </div>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <div class="controls">
+    <p><strong>Controls:</strong></p>
+    <p>↑ / ↓ Arrow Keys or Move Mouse Up/Down to move your paddle</p>
+    <p>First to 5 points wins!</p>
+  </div>
+</div>
+
+<div class="game-over" id="gameOverDialog">
+  <h2 id="gameOverMessage"></h2>
+  <button onclick="resetGame()">Play Again</button>
+</div>
