@@ -1,0 +1,63 @@
+<div class="app">
+  <!-- LEFT: Ballerina -->
+  <section class="panel">
+    <header>
+      <div>
+        <h1>Ballerina Match</h1>
+        <p class="sub">Play a Candy Crush–style match-3 to earn points and unlock new dance steps.</p>
+      </div>
+      <div class="stats">
+        <div class="pill"><small>Score</small><span id="score">0</span></div>
+        <div class="pill"><small>Moves</small><span id="movesLeft">30</span></div>
+      </div>
+    </header>
+    <div class="stage">
+      <div class="toast" id="toast">Unlocked: Pirouette 🩰</div>
+      <div class="dancerWrap">
+        <img
+          id="dancer"
+          class="dancer"
+          alt="Ballerina"
+          src="data:image/jpeg;base64,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
+"
+        />
+      </div>
+      <div class="note" style="text-align:center; margin: 0 10px;">
+        Dance steps unlock as you score: <b>200</b>, <b>500</b>, <b>900</b>.
+        Then click a step to make her dance.
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Match-3 + Dance buttons -->
+  <aside class="panel">
+    <div class="sidebar">
+      <div class="boardWrap">
+        <div class="boardHeader">
+          <div>
+            <div class="sectionTitle" style="margin:0 0 4px;">Match-3 Game</div>
+            <div style="font-size:12px; opacity:.82;">Swap adjacent tiles to make 3+ in a row.</div>
+          </div>
+          <button class="btn btnPrimary" id="newGame">New Game</button>
+        </div>
+        <div class="grid" id="grid" aria-label="match 3 grid"></div>
+        <div class="unlockLine">
+          <span class="badge">🩰 200 → Pirouette</span>
+          <span class="badge">🌀 500 → Arabesque</span>
+          <span class="badge">✨ 900 → Jeté</span>
+        </div>
+        <p class="note">Tip: Bigger matches give more points. You have <b>30 moves</b>.</p>
+      </div>
+      <div class="boardWrap">
+        <div class="sectionTitle">Dance Steps</div>
+        <div class="moves">
+          <button class="btn" id="m1" data-move="plie">Plié (free)</button>
+          <button class="btn locked" id="m2" data-move="pirouette" disabled>Pirouette</button>
+          <button class="btn locked" id="m3" data-move="arabesque" disabled>Arabesque</button>
+          <button class="btn locked" id="m4" data-move="jump" disabled>Jeté</button>
+        </div>
+        <p class="note">Keyboard (optional): <b>1</b> plié • <b>2</b> pirouette • <b>3</b> arabesque • <b>4</b> jeté</p>
+      </div>
+    </div>
+  </aside>
+</div>
