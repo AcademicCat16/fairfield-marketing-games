@@ -1,0 +1,37 @@
+<div id="menuScreen" class="screen">
+<canvas id="menuCanvas"></canvas>
+<div class="menuUI">
+<h1>PIXEL RACER</h1>
+<button class="btn-red" id="startBtn">START RACE</button>
+<button class="btn-white" id="customBtn">CUSTOMIZE CAR</button>
+</div>
+</div>
+<div id="customScreen" class="screen hidden">
+<h2>Customize Your Car</h2>
+<label>Car Color</label>
+<input type="color" id="carColor" value="#ff0000"><br><br>
+<label>Car Model</label>
+<select id="carModel">
+<option value="sport">Sport</option>
+<option value="truck">Truck</option>
+<option value="formula">Formula</option>
+</select><br><br>
+<label>Top Speed</label>
+<input type="range" id="carSpeed" min="0.03" max="0.07" step="0.005" value="0.045"><br><br>
+<button class="btn-red" id="saveCarBtn">SAVE & RETURN</button>
+</div>
+<div id="trackSelect" class="screen hidden">
+<h2>Select Track</h2>
+<button class="btn-white trackOption" data-track="0">Circular</button>
+<button class="btn-white trackOption" data-track="1">Oval</button>
+<button class="btn-white trackOption" data-track="2">Rectangle</button>
+</div>
+<div id="gameScreen" class="screen hidden">
+<canvas id="gameCanvas"></canvas>
+<div class="hud">
+<div id="laps">Lap: 0</div>
+<div id="timer">Time: 0.00</div>
+<button class="btn-red" id="backTrackBtn">TRACKS</button>
+<button class="btn-white" id="backMenuBtn">MENU</button>
+</div>
+</div>
