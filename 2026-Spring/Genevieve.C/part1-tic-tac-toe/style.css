@@ -1,0 +1,187 @@
+* {
+
+ margin: 0;
+
+ padding: 0;
+
+ box-sizing: border-box;
+
+}
+
+body {
+
+ background-color: #fff6cc; /* light yellow */
+
+ font-family: Arial, sans-serif;
+
+}
+
+.container {
+
+ text-align: center;
+
+ margin-top: 50px;
+
+}
+
+#hd {
+
+ color: #333;
+
+}
+
+.game {
+
+ display: grid;
+
+ grid-template-columns: repeat(3, 100px);
+
+ gap: 12px;
+
+ justify-content: center;
+
+ margin: 20px 0;
+
+}
+
+.box {
+
+ width: 100px;
+
+ height: 100px;
+
+ font-size: 2.5rem;
+
+ font-weight: bold;
+
+ cursor: pointer;
+
+ background-color: #ffffff;
+
+ border: 2px solid #f4b6c2;
+
+ color: #f4b6c2; /* light pink X and O */
+
+}
+
+.box:disabled {
+
+ cursor: not-allowed;
+
+}
+
+button {
+
+ padding: 10px 18px;
+
+ font-size: 1rem;
+
+ background-color: #f4b6c2; /* light pink */
+
+ border: none;
+
+ border-radius: 6px;
+
+ color: white;
+
+ cursor: pointer;
+
+}
+
+button:hover {
+
+ opacity: 0.9;
+
+}
+
+.msg-container {
+
+ text-align: center;
+
+ margin-top: 20px;
+
+}
+
+#msg {
+
+ font-size: 1.5rem;
+
+ color: #f4b6c2;
+
+ margin-bottom: 10px;
+
+}
+
+.hide {
+
+ display: none;
+
+}#balloons {
+
+ position: fixed;
+
+ bottom: 0;
+
+ left: 0;
+
+ width: 100%;
+
+ pointer-events: none;
+
+}
+
+.balloon {
+
+ position: absolute;
+
+ bottom: -60px;
+
+ width: 30px;
+
+ height: 40px;
+
+ background-color: #f4b6c2;
+
+ border-radius: 50%;
+
+ animation: floatUp 3s ease-in forwards;
+
+}
+
+.balloon::after {
+
+ content: "";
+
+ position: absolute;
+
+ top: 40px;
+
+ left: 14px;
+
+ width: 2px;
+
+ height: 20px;
+
+ background: #aaa;
+
+}
+
+@keyframes floatUp {
+
+ 0% {
+
+ transform: translateY(0);
+
+ opacity: 1;
+
+ }
+
+ 100% {
+
+ transform: translateY(-500px);
+
+ opacity: 0;
+
+ }
+
+}
