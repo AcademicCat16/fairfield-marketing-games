@@ -1,0 +1,28 @@
+body{
+font-family: Arial, sans-serif;
+text-align: center;
+background: #f4f4f4;
+}
+#gameArea{
+width: 500px;
+height: 300px;
+margin: 20px auto;
+border: 3px solid #333;
+background: white;
+position: relative;
+overflow: hidden;
+}
+#target{
+width: 50px;
+height: 50px;
+background: #ff4d4d;
+border-radius: 50%;
+position: absolute;
+display: none;
+cursor: pointer;
+}
+button{
+padding: 10px 18px;
+font-size: 16px;
+cursor: pointer;
+}
