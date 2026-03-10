@@ -1,0 +1,50 @@
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #faf8ef;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 60px;
+  margin-top: 30px;
+  color: #776e65;
+}
+
+.game-container {
+  width: 500px;
+  height: 500px;
+  background: #bbada0;
+  border-radius: 10px;
+  margin: 30px auto;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.cell {
+  background: #cdc1b4;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 35px;
+  font-weight: bold;
+  color: #776e65;
+}
+
+.tile-2    { background: #eee4da; }
+.tile-4    { background: #ede0c8; }
+.tile-8    { background: #f2b179; color: #f9f6f2; }
+.tile-16   { background: #f59563; color: #f9f6f2; }
+.tile-32   { background: #f67c5f; color: #f9f6f2; }
+.tile-64   { background: #f65e3b; color: #f9f6f2; }
+.tile-128  { background: #edcf72; color: #f9f6f2; font-size: 30px; }
+.tile-256  { background: #edcc61; color: #f9f6f2; font-size: 30px; }
+.tile-512  { background: #edc850; color: #f9f6f2; font-size: 30px; }
+.tile-1024 { background: #edc53f; color: #f9f6f2; font-size: 25px; }
+.tile-2048 { background: #edc22e; color: #f9f6f2; font-size: 25px; }
+.tile-super { background: #3c3a32; color: #f9f6f2; font-size: 20px; }
