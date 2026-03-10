@@ -1,0 +1,48 @@
+<div id="menu">
+  <h1>❄️ Winter Horse Quest ❄️</h1>
+  <div id="instructions">
+    <h2>How To Play</h2>
+    <p>You are a brave winter steed battling through enchanted lands. Defeat each boss to progress!</p>
+    <ul>
+      <li><b>Attack:</b> Reliable damage every turn.</li>
+      <li><b>Heavy Attack:</b> Big damage, but may miss.</li>
+      <li><b>Defend:</b> Reduces next enemy attack.</li>
+      <li><b>Heal:</b> Restore health (3 uses per boss).</li>
+    </ul>
+    <p>Survive all bosses to win the game!</p>
+  </div>
+  <button id="startBtn">Start Adventure</button>
+</div>
+
+<div id="game" style="display:none;">
+  <div id="sky"></div>
+  <canvas id="snow"></canvas>
+  <button id="menuBtn">Main Menu</button>
+
+  <div id="ui">
+    <div id="bossName"></div>
+    <div class="healthContainer">
+      <div class="label">Boss Health</div>
+      <div class="bar"><div id="bossHealth" class="fill boss"></div></div>
+      <div id="bossHPText" class="hpText"></div>
+    </div>
+    <div class="healthContainer">
+      <div class="label">Your Health</div>
+      <div class="bar"><div id="playerHealth" class="fill player"></div></div>
+      <div id="playerHPText" class="hpText"></div>
+    </div>
+  </div>
+
+  <!-- battle stage: horse + boss are positioned inside this -->
+  <div id="battleStage">
+    <img id="horse" src="https://i.imgur.com/ZPmImCi.png" alt="Horse">
+    <img id="boss" src="" alt="Boss">
+  </div>
+
+  <div id="actions">
+    <button id="attackBtn">Attack</button>
+    <button id="heavyBtn">Heavy Attack</button>
+    <button id="defendBtn">Defend</button>
+    <button id="healBtn">Heal</button>
+  </div>
+</div>
