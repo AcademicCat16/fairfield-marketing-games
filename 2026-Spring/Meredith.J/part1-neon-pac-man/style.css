@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  color: white;
+  flex-direction: column;
+}
+
+h1 {
+  margin-bottom: 10px;
+  letter-spacing: 4px;
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff;
+}
+
+canvas {
+  background: black;
+  box-shadow: 0 0 30px #00ffff;
+  border-radius: 12px;
+}
+
+#score {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffcc00;
+  text-shadow: 0 0 8px #ffcc00;
+}
