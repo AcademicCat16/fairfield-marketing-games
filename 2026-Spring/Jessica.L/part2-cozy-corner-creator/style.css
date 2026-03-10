@@ -1,0 +1,88 @@
+body {
+font-family: Arial, sans-serif;
+background: #fdf6f0;
+text-align: center;
+margin: 0;
+padding: 0;
+}
+h1 {
+margin-top: 30px;
+}
+.game {
+display: flex;
+justify-content: center;
+gap: 40px;
+margin-top: 40px;
+}
+.room {
+width: 300px;
+height: 300px;
+background: #ffe9d6;
+border: 5px solid #c89f7b;
+position: relative;
+border-radius: 10px;
+}
+.item {
+position: absolute;
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+}
+/* HIDE ITEMS INITIALLY */
+.hidden {
+display: none;
+}
+/* SOFA */
+#sofa {
+bottom: 10px;
+left: 60px;
+width: 180px;
+height: 100px;
+background-image: url("https://raw.githubusercontent.com/jessicalynch/game-assets/refs/heads/main/Gemini_Generated_Image_49f99k49f99k49f9.png");
+}
+/* PLANT */
+#plant {
+bottom: 10px;
+left: 10px;
+width: 80px;
+height: 100px;
+background-image: url("https://raw.githubusercontent.com/jessicalynch/game-assets/refs/heads/main/Gemini_Generated_Image_fl76vvfl76vvfl76.png");
+}
+/* LAMP */
+#lamp {
+top: 10px;
+right: 10px;
+width: 80px;
+height: 120px;
+background-image: url("https://raw.githubusercontent.com/jessicalynch/game-assets/refs/heads/main/Gemini_Generated_Image_pp6lwvpp6lwvpp6l.png");
+}
+/* PICTURE FRAME */
+#frame {
+top: 20px;
+left: 100px;
+width: 100px;
+height: 80px;
+background-image: url("https://raw.githubusercontent.com/jessicalynch/game-assets/refs/heads/main/Gemini_Generated_Image_dv3ceqdv3ceqdv3c.png");
+}
+.panel {
+text-align: left;
+max-width: 250px;
+}
+input {
+width: 100%;
+padding: 5px;
+margin: 5px 0;
+}
+button {
+display: block;
+margin: 8px 0;
+padding: 8px 12px;
+border-radius: 6px;
+border: none;
+background: #d48a6e;
+color: white;
+cursor: pointer;
+}
+button:hover {
+background: #bf7358;
+}
