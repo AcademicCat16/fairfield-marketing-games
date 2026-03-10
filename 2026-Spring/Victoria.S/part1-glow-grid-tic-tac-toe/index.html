@@ -1,0 +1,55 @@
+<main>
+  <header>
+    <h1>Tic-Tac-Toe</h1>
+    <p id="turn">Enter names to start</p>
+  </header>
+
+  <section class="board" aria-label="Tic tac toe board">
+    <div class="gamecell" data-position="0" role="button" aria-label="Cell 1"></div>
+    <div class="gamecell" data-position="1" role="button" aria-label="Cell 2"></div>
+    <div class="gamecell" data-position="2" role="button" aria-label="Cell 3"></div>
+    <div class="gamecell" data-position="3" role="button" aria-label="Cell 4"></div>
+    <div class="gamecell" data-position="4" role="button" aria-label="Cell 5"></div>
+    <div class="gamecell" data-position="5" role="button" aria-label="Cell 6"></div>
+    <div class="gamecell" data-position="6" role="button" aria-label="Cell 7"></div>
+    <div class="gamecell" data-position="7" role="button" aria-label="Cell 8"></div>
+    <div class="gamecell" data-position="8" role="button" aria-label="Cell 9"></div>
+  </section>
+
+  <div class="controls">
+    <button id="resetBtn" type="button">Reset</button>
+    <div class="legend">
+      <span class="dot yellow"></span> X = Yellow
+      <span class="spacer"></span>
+      <span class="dot green"></span> O = Green
+    </div>
+  </div>
+</main>
+
+<dialog id="namesDialog">
+  <h2>Player Names</h2>
+  <form id="namesForm" method="dialog">
+    <div class="row">
+      <label>
+        Player 1 (X)
+        <input id="name1" name="name1" required minlength="1" placeholder="Player 1" />
+      </label>
+      <label>
+        Player 2 (O)
+        <input id="name2" name="name2" required minlength="1" placeholder="Player 2" />
+      </label>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="primary" id="startBtn" type="submit">Start Game</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="resultDialog">
+  <h3 id="resultText">Result</h3>
+  <div class="dialog-actions">
+    <button id="playAgainBtn" class="primary" type="button">Play Again</button>
+    <button id="closeResultBtn" type="button">Close</button>
+  </div>
+</dialog>
