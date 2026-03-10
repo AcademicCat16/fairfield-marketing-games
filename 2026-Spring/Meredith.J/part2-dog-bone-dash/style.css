@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #87CEEB, #ffffff);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+h1 { margin: 10px; }
+
+#score, #timer { font-size: 20px; }
+
+canvas {
+  background: #e0f7fa;
+  display: block;
+  margin: 0 auto;
+  border: 3px solid #333;
+}
