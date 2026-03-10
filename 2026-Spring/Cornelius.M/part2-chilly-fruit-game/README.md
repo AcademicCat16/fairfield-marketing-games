@@ -1,5 +1,3 @@
-Here is a complete, copy-paste-ready README.md for your project. I’ve formatted it to look professional and included technical details that explain how the logic works.
-
 🍓 Chilly Fruit Game
 Chilly Fruit Game is a polished, interactive drag-and-drop web game. Players must move a set of fresh fruit from a "Full Fridge" on the left to an "Empty Fridge" on the right.
 
