@@ -1,0 +1,95 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chill Fishing (Cozy)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1>🎣 Cozy Fishing</h1>
+        <p class="sub">Pick a spot, cast, relax, reel, collect. Cozy vibes only.</p>
+      </div>
+
+      <div class="stats">
+        <div class="pill">🪙 Coins: <span id="coins">0</span></div>
+        <div class="pill">⭐ XP: <span id="xp">0</span></div>
+        <div class="pill">🎯 Streak: <span id="streak">0</span></div>
+      </div>
+    </header>
+
+    <section class="lake">
+      <div id="water" class="water spot-pond">
+        <div class="waterTopFog"></div>
+
+        <!-- bobber + line -->
+        <div id="line" class="line hidden" aria-hidden="true"></div>
+        <div id="bobber" class="bobber hidden" aria-hidden="true"></div>
+
+        <!-- reel animation fish -->
+        <div id="reelFish" class="reelFish hidden" aria-hidden="true">🐟</div>
+
+        <div class="ripples"></div>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <label class="selectWrap">
+            <span class="selectLabel">📍 Fishing Spot</span>
+            <select id="spotSelect" class="select">
+              <option value="pond">Pond (easy + cozy)</option>
+              <option value="river">River (balanced)</option>
+              <option value="ocean">Ocean (risk / reward)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="row">
+          <button id="castBtn" class="btn">Cast Line</button>
+          <button id="reelBtn" class="btn" disabled>Reel In</button>
+          <button id="sellBtn" class="btn ghost" disabled>Sell Catch</button>
+        </div>
+
+        <div class="row small">
+          <div class="meter">
+            <div class="meterLabel">Patience</div>
+            <div class="bar"><div id="patienceBar" class="fill"></div></div>
+          </div>
+
+          <div class="meter">
+            <div class="meterLabel">Luck</div>
+            <div class="bar"><div id="luckBar" class="fill"></div></div>
+          </div>
+
+          <div class="meter">
+            <div class="meterLabel">Rod Level</div>
+            <div class="bar"><div id="rodBar" class="fill"></div></div>
+          </div>
+        </div>
+
+        <div class="catchBox">
+          <div class="catchTitle">Latest Catch</div>
+          <div id="catchText" class="catchText">Choose a spot and cast your line.</div>
+        </div>
+
+        <div class="row">
+          <button id="upgradeBtn" class="btn accent">
+            Upgrade Rod (Cost: <span id="upgradeCost">15</span>🪙)
+          </button>
+          <button id="resetBtn" class="btn ghost">Reset</button>
+        </div>
+
+        <div id="log" class="log" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      Tip: reel when you see “Nibble!” for better odds 🎏
+    </footer>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
