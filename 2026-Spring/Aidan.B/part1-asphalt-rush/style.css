@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  background: radial-gradient(#222, #000);
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+canvas {
+  display: block;
+  margin: auto;
+  border: 4px solid #111;
+  background: #444;
+}
+
+.ui {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  color: white;
+  background: rgba(0,0,0,0.6);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+}
