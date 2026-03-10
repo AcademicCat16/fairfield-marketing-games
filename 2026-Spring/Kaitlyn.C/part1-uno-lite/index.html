@@ -1,0 +1,57 @@
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">UNO-lite</div>
+      <div class="sub">You vs 2 CPUs • Simple rules • Fast turns</div>
+    </div>
+    <div class="controls">
+      <button id="newGameBtn" class="btn secondary">New Game</button>
+      <button id="drawBtn" class="btn">Draw</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel">
+      <h2>Players</h2>
+      <div id="players"></div>
+      <div id="status" class="status"></div>
+    </section>
+
+    <section class="panel table">
+      <h2>Table</h2>
+      <div class="tableRow">
+        <div class="pile">
+          <div class="label">Deck</div>
+          <button id="deckBtn" class="pileCard">
+            <div class="pileCount" id="deckCount">0</div>
+            <div class="pileText">Draw</div>
+          </button>
+        </div>
+        <div class="pile">
+          <div class="label">Discard</div>
+          <div id="discardTop" class="card big ghost">—</div>
+          <div class="meta">
+            Current color: <span id="currentColor" class="pill">—</span>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <h2>Your Hand</h2>
+      <div id="hand" class="hand"></div>
+      <div class="hint">Click a playable card. If none, draw. Wild asks you to pick a color.</div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden">
+    <div class="modalCard">
+      <div class="modalTitle">Choose a color</div>
+      <div class="colorRow">
+        <button class="colorBtn red"    data-color="R">Red</button>
+        <button class="colorBtn yellow" data-color="Y">Yellow</button>
+        <button class="colorBtn green"  data-color="G">Green</button>
+        <button class="colorBtn blue"   data-color="B">Blue</button>
+      </div>
+      <button id="cancelColorBtn" class="btn secondary full">Cancel</button>
+    </div>
+  </div>
+</div>
