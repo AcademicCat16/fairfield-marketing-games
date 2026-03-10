@@ -1,0 +1,64 @@
+<div class="app" id="app">
+  <header class="top">
+    <div>
+      <h1>Tic Tac Toe</h1>
+      <p class="sub">Best-of mode + themes</p>
+    </div>
+
+    <button id="themeBtn" class="btn ghost" aria-label="Toggle theme">
+      Toggle Theme
+    </button>
+  </header>
+
+  <section class="scoreboard">
+    <div class="score">
+      <div class="label">X</div>
+      <div id="scoreX" class="value">0</div>
+    </div>
+
+    <div class="score mid">
+      <div class="label">Draws</div>
+      <div id="scoreD" class="value">0</div>
+    </div>
+
+    <div class="score">
+      <div class="label">O</div>
+      <div id="scoreO" class="value">0</div>
+    </div>
+  </section>
+
+  <div class="controls">
+    <label class="selectWrap">
+      Match type
+      <select id="matchSelect">
+        <option value="1">Single game</option>
+        <option value="3" selected>Best of 3</option>
+        <option value="5">Best of 5</option>
+      </select>
+    </label>
+
+    <button id="newMatch" class="btn">New Match</button>
+  </div>
+
+  <div id="status" class="status">X's turn</div>
+
+  <div id="board" class="board" aria-label="Tic Tac Toe Board">
+    <button class="cell" data-i="0"></button>
+    <button class="cell" data-i="1"></button>
+    <button class="cell" data-i="2"></button>
+    <button class="cell" data-i="3"></button>
+    <button class="cell" data-i="4"></button>
+    <button class="cell" data-i="5"></button>
+    <button class="cell" data-i="6"></button>
+    <button class="cell" data-i="7"></button>
+    <button class="cell" data-i="8"></button>
+  </div>
+
+  <div class="bottom">
+    <button id="reset" class="btn">Next Round</button>
+  </div>
+
+  <footer class="rules">
+    <strong>Scoring:</strong> Win = 3 pts, Draw = 1 pt, Loss = 0 pts
+  </footer>
+</div>
