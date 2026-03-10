@@ -1,0 +1,20 @@
+<div class="app" role="application" aria-label="Matching game">
+  <header>
+    <div class="title">
+      <h1>Matching Game</h1>
+      <p>Flip two cards. Match all pairs to win.</p>
+    </div>
+    <div class="controls">
+      <div class="chip" aria-label="Moves">Moves: <b id="moves">0</b></div>
+      <div class="chip" aria-label="Time">Time: <b id="time">0:00</b></div>
+      <button id="restart" type="button">Restart</button>
+    </div>
+  </header>
+  <main>
+    <div class="message" id="status" aria-live="polite">
+      <span>Find all <b id="pairCount">0</b> pairs.</span>
+      <span><span id="hint">Tip:</span> try to remember positions.</span>
+    </div>
+    <section class="grid" id="grid" aria-label="Card grid"></section>
+  </main>
+</div>
