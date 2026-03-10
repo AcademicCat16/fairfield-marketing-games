@@ -1,4 +1,4 @@
-# 💥 Crash Course
+# 💥 Asphalt Rush
 
 A top-down arcade racing game. Dodge the oncoming red car as long as you can — one crash and it's over!
 
