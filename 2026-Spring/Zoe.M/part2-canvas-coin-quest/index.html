@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Canvas Coin Quest</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+<h1>Canvas Coin Quest</h1>
+<p class="sub">
+Move: <b>WASD</b> / <b>Arrow Keys</b> • Collect <b>10 coins</b> • Avoid
+enemies
+</p>
+<div class="hud">
+<div>Coins: <b id="coinCount">0</b>/10</div>
+<div>Lives: <b id="lives">3</b></div>
+<button id="restartBtn">Restart</button>
+</div>
+<canvas id="game" width="720" height="420"></canvas>
+<p class="note">
+Visuals are generated using Canvas (no image files). Player, coins, enemies, and
+background are drawn in JS.
+</p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
