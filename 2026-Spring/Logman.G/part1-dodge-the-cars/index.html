@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossy Road</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            font-family: Arial, sans-serif;
+        }
+        
+        #gameContainer {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            background-color: #228B22;
+            border: 3px solid #000;
+            overflow: hidden;
+        }
+        
+        canvas {
+            display: block;
+            background-color: #228B22;
+        }
+        
+        #score, #level {
+            position: absolute;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            z-index: 10;
+        }
+        
+        #score {
+            left: 10px;
+        }
+        
+        #level {
+            right: 10px;
+        }
+        
+        #gameOverScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            z-index: 20;
+            display: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        #gameOverScreen h1 {
+            color: #DC143C;
+            margin: 0 0 20px 0;
+        }
+        
+        #gameOverScreen p {
+            color: #333;
+            font-size: 18px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div id="score">Score: 0</div>
+        <div id="level">Level: 1</div>
+        <div id="gameOverScreen">
+            <h1>GAME OVER!</h1>
+            <p id="finalScore">Final Score: 0</p>
+            <p>Press R to Restart</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
