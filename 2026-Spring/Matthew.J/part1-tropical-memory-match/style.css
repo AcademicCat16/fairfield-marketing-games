@@ -1,0 +1,89 @@
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  background: linear-gradient(to bottom, #00c6ff, #0072ff);
+  text-align: center;
+  margin: 0;
+  padding: 20px 0;
+  color: white;
+  min-height: 100vh;
+}
+
+#logo {
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.4);
+}
+
+#info {
+  margin: 10px;
+  font-size: 20px;
+}
+
+#moves, #time {
+  margin: 0 15px;
+}
+
+#game-container {
+  margin-top: 20px;
+}
+
+table {
+  margin: 0 auto;
+  border-spacing: 10px;
+}
+
+td {
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(145deg, #f6d365, #fda085);
+  border-radius: 15px;
+  font-size: 40px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  text-align: center;
+  vertical-align: middle;
+}
+
+td:hover {
+  transform: scale(1.05);
+}
+
+/* Each emoji gets its own card color */
+td[data-symbol="🌴"] { background: linear-gradient(145deg, #43e97b, #38f9d7); }
+td[data-symbol="🦜"] { background: linear-gradient(145deg, #f093fb, #f5576c); }
+td[data-symbol="🍍"] { background: linear-gradient(145deg, #ffd200, #f7971e); }
+td[data-symbol="🐠"] { background: linear-gradient(145deg, #4facfe, #00f2fe); }
+td[data-symbol="🌺"] { background: linear-gradient(145deg, #fa709a, #fee140); }
+td[data-symbol="🦀"] { background: linear-gradient(145deg, #ff6a00, #ee0979); }
+td[data-symbol="🐚"] { background: linear-gradient(145deg, #a18cd1, #fbc2eb); }
+td[data-symbol="🌊"] { background: linear-gradient(145deg, #0093E9, #80D0C7); }
+
+/* Face-down cards are neutral gold */
+td.facedown {
+  background: linear-gradient(145deg, #f6d365, #fda085) !important;
+}
+
+.matched {
+  background: linear-gradient(145deg, #43e97b, #38f9d7) !important;
+  box-shadow: 0 0 15px #38f9d7;
+  cursor: default;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 25px;
+  background: #ff9a9e;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #fad0c4;
+  transform: scale(1.05);
+}
