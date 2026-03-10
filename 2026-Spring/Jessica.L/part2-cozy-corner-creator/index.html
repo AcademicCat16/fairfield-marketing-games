@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Cozy Corner Creator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>🏡 Cozy Corner Creator</h1>
+<p>Complete math chores to earn coins and decorate your room!</p>
+<div class="game">
+<!-- ROOM -->
+<div class="room">
+<div id="sofa" class="item hidden"></div>
+<div id="plant" class="item hidden"></div>
+<div id="lamp" class="item hidden"></div>
+<div id="frame" class="item hidden"></div>
+</div>
+<!-- CONTROL PANEL -->
+<div class="panel">
+<p><strong>Coins:</strong> <span id="coins">0</span></p>
+<h3>🧹 Complete a Chore</h3>
+<p id="question">Press "Start Chore" to begin!</p>
+<input type="number" id="answer" placeholder="Enter your answer">
+<button id="submitAnswer">Submit Answer</button>
+<button id="newQuestion">Start Chore</button>
+<h3>🛒 Buy Decorations</h3>
+<button onclick="buyItem('sofa', 5)">Buy Sofa (5)</button>
+<button onclick="buyItem('plant', 3)">Buy Plant (3)</button>
+<button onclick="buyItem('lamp', 4)">Buy Lamp (4)</button>
+<button onclick="buyItem('frame', 6)">Buy Picture Frame (6)</button>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
