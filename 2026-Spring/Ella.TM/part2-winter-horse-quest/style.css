@@ -1,0 +1,160 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Trebuchet MS', sans-serif;
+  height: 100%;
+}
+
+#sky {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: linear-gradient(-45deg, #bcd9ff, #e6f2ff, #d4ecff, #f0f8ff);
+  background-size: 400% 400%;
+  animation: gradientMove 20s ease infinite;
+  z-index: -3;
+}
+
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+#snow {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+/* MENU */
+#menu {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(240,248,255,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+#menu h1 { font-size: 48px; color: #1b3a57; }
+
+#instructions {
+  max-width: 500px;
+  text-align: left;
+  color: #1b3a57;
+  margin-bottom: 20px;
+}
+
+#menu button, #menuBtn {
+  padding: 15px 40px;
+  font-size: 20px;
+  border-radius: 25px;
+  border: none;
+  background: #1b3a57;
+  color: white;
+  cursor: pointer;
+}
+
+/* GAME */
+#game {
+  text-align: center;
+  padding-top: 20px;
+}
+
+#menuBtn {
+  position: fixed;
+  top: 20px; right: 20px;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 15px;
+  z-index: 5;
+}
+
+/* UI bars */
+#ui {
+  position: relative;
+  z-index: 2;
+}
+
+.bar {
+  width: 300px;
+  height: 25px;
+  background: #ffffffaa;
+  margin: 6px auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  width: 100%;
+  transition: width 0.4s ease;
+}
+
+.player { background: linear-gradient(to right, #4CAF50, #8BC34A); }
+.boss   { background: linear-gradient(to right, #d32f2f, #ff5252); }
+
+#bossName {
+  font-size: 28px;
+  color: #1b3a57;
+  margin-bottom: 8px;
+}
+
+.label  { color: #1b3a57; font-weight: bold; margin-top: 10px; }
+.hpText { color: #1b3a57; font-size: 13px; }
+
+/* BATTLE STAGE — horse and boss are positioned inside here */
+#battleStage {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  margin-top: 20px;
+}
+
+#horse {
+  width: 180px;
+  position: absolute;
+  left: 15%;
+  bottom: 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+#boss {
+  width: 220px;
+  position: absolute;
+  right: 15%;
+  bottom: 0;
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-15px); }
+}
+
+/* ACTION BUTTONS */
+#actions {
+  margin-top: 20px;
+  z-index: 2;
+  position: relative;
+}
+
+#actions button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 15px;
+  border: none;
+  background: #1b3a57;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#actions button:hover { background: #2a5580; }
