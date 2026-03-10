@@ -1,0 +1,86 @@
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  text-align: center;
+  background: #f0f4f8;
+  margin: 0;
+  padding: 20px;
+  color: #2d3748;
+}
+
+h1 { margin: 10px 0; color: #4a5568; }
+
+#msg { 
+  margin-bottom: 20px; 
+  padding: 10px;
+  background: white;
+  display: inline-block;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.wrap {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.fridge {
+  position: relative;
+  width: 300px;
+  height: 480px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  border: 8px solid #cbd5e0;
+  transition: transform 0.3s ease;
+}
+
+/* Visual feedback when dragging over the right fridge */
+.fridge.drag-over {
+  transform: scale(1.02);
+  border-color: #4299e1;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.fruit {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  cursor: grab;
+  user-select: none;
+  background: white;
+  border: 1px solid #edf2f7;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  touch-action: none; /* Critical for mobile/tablet */
+  z-index: 100;
+}
+
+.fruit:active {
+  cursor: grabbing;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: scale(1.1);
+}
+
+button {
+  margin-top: 30px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 50px;
+  background: #2d3748;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:hover { background: #4a5568; }
