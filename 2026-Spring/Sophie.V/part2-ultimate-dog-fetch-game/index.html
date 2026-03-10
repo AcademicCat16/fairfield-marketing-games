@@ -1,0 +1,39 @@
+<div class="header">🐕 Ultimate Dog Fetch Game 🎾</div>
+
+<div class="game-info">
+    <span>💡 Drag the ball to throw it!</span>
+    <span>⭐ 💗 = 5 pts</span>
+    <span>🛑 Avoid obstacles!</span>
+</div>
+
+<div class="game-container">
+    <div class="score">Score: <span id="score">0</span></div>
+    <div class="combo">Combo: <span id="combo">0</span>x</div>
+    <div class="time">Time: <span id="time">30</span>s</div>
+    
+    <div class="dog" id="dog">🐕</div>
+    <div class="ball" id="ball"></div>
+    
+    <div class="instructions" id="instructions">
+        <h1>🐕 Ultimate Fetch Game 🎾</h1>
+        <p><strong>How to Play:</strong></p>
+        <ul>
+            <li>🎾 Drag the <strong>golden ball</strong> and release to throw</li>
+            <li>⭐ Catch <strong>pink balls</strong> for 5 bonus points!</li>
+            <li>💪 Build a <strong>combo</strong> for extra multiplier!</li>
+            <li>🛑 Avoid <strong>obstacles</strong> - they block your pup!</li>
+            <li>⏱️ You have <strong>30 seconds</strong> to fetch!</li>
+        </ul>
+        <button onclick="startGame()">🚀 Start Game!</button>
+    </div>
+    
+    <div class="game-over" id="gameOver">
+        <h1>Game Over! 🎉</h1>
+        <div class="stats">
+            <p>Final Score: <span id="finalScore">0</span></p>
+            <p>Max Combo: <span id="maxCombo">0</span>x</p>
+            <p>Total Catches: <span id="totalCatches">0</span></p>
+        </div>
+        <button onclick="location.reload()">🔄 Play Again</button>
+    </div>
+</div>
