@@ -1,0 +1,31 @@
+<canvas id="game"></canvas>
+<div id="ui">
+  <div class="hud">
+    <div class="stat"><strong>HP</strong> <span id="hpVal">100</span></div>
+    <div class="stat"><strong>Ammo</strong> <span id="ammoVal">30</span></div>
+    <div class="stat"><strong>Elims</strong> <span id="killsVal">0</span></div>
+    <div class="stat"><strong>Time</strong> <span id="timeVal">0:00</span></div>
+  </div>
+  <div id="centerMessage" class="center-msg"></div>
+  <div id="menu" class="overlay">
+    <div class="overlay__box">
+      <h1>⚔️ Battle Zone</h1>
+      <p>Survive the storm. Eliminate enemies. Be the last one standing.</p>
+      <p class="hint">WASD / Arrows — Move &nbsp;|&nbsp; Mouse — Aim &nbsp;|&nbsp; Click / Space — Shoot &nbsp;|&nbsp; P — Pause</p>
+      <button id="startBtn" class="btn">Start</button>
+    </div>
+  </div>
+  <div id="pauseOverlay" class="overlay" hidden>
+    <div class="overlay__box">
+      <h2>Paused</h2>
+      <p>Press P to resume</p>
+    </div>
+  </div>
+  <div id="gameOverOverlay" class="overlay" hidden>
+    <div class="overlay__box">
+      <h2 id="gameOverTitle">Game Over</h2>
+      <p id="gameOverStats"></p>
+      <button id="restartBtn" class="btn">Play Again</button>
+    </div>
+  </div>
+</div>
