@@ -1,0 +1,13 @@
+body {
+background: #111;
+color: white;
+font-family: Arial, sans-serif;
+text-align: center;
+}
+.game-container {
+margin-top: 30px;
+}
+canvas {
+background: black;
+border: 3px solid #00ff88;
+}
