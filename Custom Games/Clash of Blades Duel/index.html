@@ -1,0 +1,220 @@
+<style>
+body {
+  background: #1b1b2f;
+  font-family: monospace;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+#game {
+  width: 900px;
+  background: #162447;
+  padding: 20px;
+  border: 6px solid #e43f5a;
+  box-shadow: 0 0 20px black;
+}
+h1 {
+  text-align: center;
+  margin-top: 0;
+  color: #e43f5a;
+}
+.battle-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.character {
+  width: 45%;
+  text-align: center;
+  padding: 10px;
+  border: 3px solid #fff;
+  background: #1f4068;
+  transition: transform 0.2s;
+}
+.character img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  border: 3px solid #000;
+}
+.hp-bar-container {
+  width: 100%;
+  background: #333;
+  height: 20px;
+  margin: 10px 0 5px 0;
+}
+.hp-bar {
+  height: 100%;
+  background: limegreen;
+  width: 100%;
+  transition: width 0.3s;
+}
+button {
+  background: #e43f5a;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  color: white;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 14px;
+}
+button:hover { background: #ff2e63; }
+button:disabled { background: gray; cursor: not-allowed; }
+#log {
+  background: #0f3057;
+  padding: 10px;
+  height: 140px;
+  overflow-y: auto;
+  border: 2px solid white;
+  margin-top: 15px;
+  font-size: 14px;
+}
+.flash { animation: hitFlash 0.3s; }
+@keyframes hitFlash {
+  0% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style>
+
+<div id="game">
+  <h1>⚔️ Aric the Ironblade vs Draxis the Wickedblade</h1>
+  <div class="battle-area">
+    <!-- PLAYER -->
+    <div class="character" id="playerBox">
+      <h2>Aric the Ironblade</h2>
+      <div style="font-size:80px;padding:20px">🧝</div>
+      <div class="hp-bar-container">
+        <div class="hp-bar" id="playerHP"></div>
+      </div>
+      <div id="playerHPText"></div>
+    </div>
+    <!-- ENEMY -->
+    <div class="character" id="enemyBox">
+      <h2>Draxis the Wickedblade</h2>
+      <div style="font-size:80px;padding:20px">🧟</div>
+      <div class="hp-bar-container">
+        <div class="hp-bar" id="enemyHP"></div>
+      </div>
+      <div id="enemyHPText"></div>
+    </div>
+  </div>
+  <div>
+    <button onclick="playerAttack()">⚔️ Slash</button>
+    <button onclick="powerStrike()" id="powerBtn">💥 Power Strike</button>
+    <button onclick="guard()">🛡️ Guard</button>
+    <button onclick="whirlSlash()" id="whirlBtn">🌀 Whirl Slash</button>
+  </div>
+  <div id="log"></div>
+</div>
+
+<script>
+let player = {
+  name: "Aric",
+  maxHP: 28, hp: 28,
+  attack: 6, defense: 5,
+  guarding: false,
+  powerCooldown: 0,
+  whirlCooldown: 0
+};
+let enemy = {
+  name: "Draxis",
+  maxHP: 32, hp: 32,
+  attack: 8, defense: 4
+};
+
+function updateUI() {
+  document.getElementById("playerHP").style.width = (player.hp / player.maxHP) * 100 + "%";
+  document.getElementById("enemyHP").style.width  = (enemy.hp  / enemy.maxHP)  * 100 + "%";
+  document.getElementById("playerHPText").innerText = player.hp + " / " + player.maxHP + " HP";
+  document.getElementById("enemyHPText").innerText  = enemy.hp  + " / " + enemy.maxHP  + " HP";
+  document.getElementById("powerBtn").disabled = player.powerCooldown > 0;
+  document.getElementById("whirlBtn").disabled = player.whirlCooldown > 0;
+  document.getElementById("powerBtn").title = player.powerCooldown > 0 ? "Cooldown: " + player.powerCooldown : "";
+  document.getElementById("whirlBtn").title = player.whirlCooldown > 0 ? "Cooldown: " + player.whirlCooldown : "";
+}
+
+function log(text) {
+  let logBox = document.getElementById("log");
+  logBox.innerHTML += text + "<br>";
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+function calculateDamage(attacker, defender, multiplier = 1) {
+  return Math.max(1, Math.floor((attacker.attack * multiplier) - defender.defense));
+}
+
+function playerAttack() {
+  let damage = calculateDamage(player, enemy);
+  enemy.hp -= damage;
+  animateHit("enemyBox");
+  log("⚔️ Aric uses Slash! Deals <b>" + damage + "</b> damage.");
+  enemyTurn();
+}
+
+function powerStrike() {
+  let damage = calculateDamage(player, enemy, 1.5);
+  enemy.hp -= damage;
+  player.powerCooldown = 2;
+  animateHit("enemyBox");
+  log("💥 Aric uses Power Strike! Deals <b>" + damage + "</b> damage.");
+  enemyTurn();
+}
+
+function whirlSlash() {
+  let damage = calculateDamage(player, enemy, 1.2);
+  enemy.hp -= damage;
+  player.whirlCooldown = 3;
+  animateHit("enemyBox");
+  log("🌀 Aric uses Whirl Slash! Deals <b>" + damage + "</b> damage.");
+  enemyTurn();
+}
+
+function guard() {
+  player.guarding = true;
+  log("🛡️ Aric enters Guard Stance!");
+  enemyTurn();
+}
+
+function enemyTurn() {
+  if (enemy.hp <= 0) { endGame("🎉 You defeated Draxis!"); return; }
+  document.querySelectorAll("button").forEach(b => b.disabled = true);
+  setTimeout(() => {
+    let damage = calculateDamage(enemy, player);
+    if (player.guarding) {
+      damage = Math.floor(damage / 2);
+      player.guarding = false;
+      log("🛡️ Guard reduces damage!");
+    }
+    player.hp -= damage;
+    animateHit("playerBox");
+    log("💀 Draxis strikes for <b>" + damage + "</b> damage!");
+    if (player.hp <= 0) { endGame("💀 Draxis has defeated you..."); return; }
+    cooldowns();
+    updateUI();
+    document.querySelectorAll("button").forEach(b => b.disabled = false);
+    document.getElementById("powerBtn").disabled = player.powerCooldown > 0;
+    document.getElementById("whirlBtn").disabled = player.whirlCooldown > 0;
+  }, 800);
+}
+
+function animateHit(id) {
+  let el = document.getElementById(id);
+  el.classList.add("flash");
+  setTimeout(() => el.classList.remove("flash"), 300);
+}
+
+function cooldowns() {
+  if (player.powerCooldown > 0) player.powerCooldown--;
+  if (player.whirlCooldown > 0) player.whirlCooldown--;
+}
+
+function endGame(message) {
+  log("<strong>" + message + "</strong>");
+  document.querySelectorAll("button").forEach(btn => btn.disabled = true);
+}
+
+updateUI();
+</script>
