@@ -1,0 +1,97 @@
+<div id="startScreen" class="screen col active">
+  <span class="neon-star" style="top:10%;left:15%;font-size:14px;animation-delay:0s">✦</span>
+  <span class="neon-star" style="top:20%;right:20%;font-size:8px;animation-delay:.8s">✦</span>
+  <span class="neon-star" style="top:70%;left:25%;font-size:14px;animation-delay:1.2s">✦</span>
+  <span class="neon-star" style="top:55%;right:14%;font-size:18px;animation-delay:.4s">✦</span>
+  <span class="neon-star" style="bottom:14%;right:30%;font-size:10px;animation-delay:1.8s">✦</span>
+
+  <div class="start-card">
+    <span class="start-icon">🏙️</span>
+    <div class="start-title">Apartment<br>Designer ✨</div>
+    <div class="start-sub">Help a chameleon furnish their dream neon apartment!</div>
+    <button class="btn btn-purple" id="btnPlay">▶ Play Now</button>
+  </div>
+</div>
+
+<div id="charScreen" class="screen col">
+  <div class="section-title">Choose Who to Help! 🦎</div>
+  <div class="section-sub">Pick a chameleon who just moved in</div>
+  <div class="char-grid" id="charGrid"></div>
+</div>
+
+<div id="introScreen" class="screen">
+  <div class="intro-apt-wrap">
+    <div class="apt-placeholder" id="introAptImg">EMPTY APARTMENT</div>
+
+    <div class="intro-bubble">
+      <div class="intro-bubble-name" id="introBubbleName"></div>
+      <div class="intro-bubble-text" id="introBubbleText"></div>
+    </div>
+
+    <div class="char-on-apt">
+      <img id="introCharImg" src="" alt="character">
+    </div>
+  </div>
+
+  <div class="intro-side">
+    <div class="intro-side-title" id="introSideTitle"></div>
+    <div class="intro-side-sub">Help them arrange and design their new place!</div>
+    <button class="btn btn-purple" id="btnStartDesign" style="font-size:16px;padding:13px 28px">🛋 Let's Design!</button>
+  </div>
+</div>
+
+<div id="gameScreen" class="screen">
+  <div class="game-left">
+    <div class="bp-label">Designer</div>
+    <img class="panel-char-img" id="panelCharImg" src="" alt="character">
+    <div class="game-bubble" id="gameBubble">Drag furniture in!</div>
+
+    <div class="bp-label" style="margin-top:4px">Furniture</div>
+    <div class="furniture-palette" id="palette"></div>
+
+    <div class="compass">🧭</div>
+    <div class="scale-bar">FLOOR PLAN · 1:20</div>
+  </div>
+
+  <div class="game-right">
+    <div class="bp-title">📐 Apartment Blueprint</div>
+
+    <div id="apartment">
+      <svg class="apt-walls" viewBox="0 0 670 395" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="654" height="379" fill="none" stroke="rgba(0,255,160,.3)" stroke-width="3"/>
+        <line x1="450" y1="8" x2="450" y2="260" stroke="rgba(0,255,160,.18)" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <line x1="450" y1="260" x2="670" y2="260" stroke="rgba(0,255,160,.18)" stroke-width="1.5" stroke-dasharray="6,4"/>
+        <path d="M8 130 Q42 130 42 164" fill="none" stroke="rgba(0,255,160,.22)" stroke-width="1.5"/>
+        <line x1="8" y1="130" x2="8" y2="164" stroke="rgba(0,255,160,.22)" stroke-width="1.5"/>
+        <line x1="160" y1="8" x2="310" y2="8" stroke="rgba(100,220,255,.35)" stroke-width="3"/>
+        <line x1="490" y1="8" x2="630" y2="8" stroke="rgba(100,220,255,.35)" stroke-width="3"/>
+        <line x1="8" y1="200" x2="8" y2="320" stroke="rgba(100,220,255,.35)" stroke-width="3"/>
+      </svg>
+
+      <span class="room-label" style="left:18px;top:16px">LIVING ROOM</span>
+      <span class="room-label" style="left:462px;top:16px">BEDROOM</span>
+      <span class="room-label" style="left:462px;top:270px">BATHROOM</span>
+      <span class="room-label" style="left:18px;top:330px">KITCHEN</span>
+    </div>
+
+    <button class="btn-done" id="btnDone">✨ I'm Done Designing!</button>
+  </div>
+</div>
+
+<div id="glitterOverlay">
+  <canvas id="glitterCanvas"></canvas>
+</div>
+
+<div id="finalScreen" class="screen">
+  <div class="final-left">
+    <div class="bp-label" style="color:rgba(167,100,255,.6)">Your Pal</div>
+    <div class="final-bubble" id="finalBubble"></div>
+    <img class="final-char-img" id="finalCharImg" src="" alt="character">
+  </div>
+
+  <div class="final-right">
+    <div class="final-title">🎉 Look at This Place!</div>
+    <div class="final-apt" id="finalAptPreview"></div>
+    <button class="btn btn-neon" id="btnPlayAgain">🔄 Play Again</button>
+  </div>
+</div>
