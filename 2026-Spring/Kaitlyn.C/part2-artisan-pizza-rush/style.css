@@ -1,0 +1,114 @@
+:root {
+  --bg: #0b1020;
+  --panel: rgba(255,255,255,.06);
+  --stroke: rgba(255,255,255,.12);
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.6);
+  --r: 18px;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app { width: 1000px; padding: 20px; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--panel);
+  padding: 15px;
+  border-radius: var(--r);
+  border: 1px solid var(--stroke);
+  margin-bottom: 20px;
+}
+
+.grid { display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: var(--r);
+  padding: 20px;
+}
+
+/* Pizza Visuals */
+.pizza {
+  position: relative;
+  margin: 0 auto;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.pizza.size-sm { width: 240px; height: 240px; }
+.pizza.size-md { width: 300px; height: 300px; }
+.pizza.size-lg { width: 360px; height: 360px; }
+
+.crust {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffdcaaff, #aa6e3cff);
+}
+
+.sauce {
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  transition: background 0.3s;
+}
+
+.pizza.sauce-tomato .sauce { background: #911919; }
+.pizza.sauce-alfredo .sauce { background: #fdf5e6; }
+.pizza.sauce-pesto .sauce { background: #237d46; }
+
+.cheese {
+  position: absolute;
+  inset: 25px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff5be, #e1be46);
+  opacity: 1;
+}
+
+.pizza.cheese-no .cheese { opacity: 0; }
+
+.topping {
+  position: absolute;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+}
+
+.topping.pepperoni { background: #d93636; border: 1px solid #911919; }
+.topping.mushroom { background: #c7b08a; border-radius: 4px; }
+.topping.olive { background: #222; width: 10px; height: 10px; }
+
+/* Buttons */
+.segBtn, .toppingBtn, .btn {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border: 1px solid var(--stroke);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.segBtn.active, .toppingBtn.active { background: white; color: black; }
+
+/* Chef Popup */
+.chef {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  display: flex; align-items: flex-end;
+  background: #1a202c;
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid var(--stroke);
+}
+.chef.hidden { display: none; }
