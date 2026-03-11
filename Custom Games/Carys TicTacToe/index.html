@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Tic Tac Toe — Carys Edition</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;500&display=swap');
+
+:root {
+  --rose:    #f472b6;
+  --blush:   #fda4cf;
+  --lilac:   #c084fc;
+  --cream:   #fff1f8;
+  --deep:    #831843;
+  --x-col:   #f472b6;
+  --o-col:   #a855f7;
+  --win-glow: rgba(244,114,182,0.45);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  background: #fdf2f8;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Animated mesh background ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 10%, rgba(249,168,212,0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 80% 90%, rgba(192,132,252,0.38) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 60% 40%, rgba(253,164,207,0.25) 0%, transparent 55%),
+    linear-gradient(155deg, #fdf2f8 0%, #fce7f3 40%, #f5d0fe 100%);
+  animation: meshShift 12s ease-in-out infinite alternate;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes meshShift {
+  0%   { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(18deg); }
+}
+
+/* ── Floating sparkles ── */
+.sparkle-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.sparkle {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  animation: floatSparkle linear infinite;
+}
+@keyframes floatSparkle {
+  0%   { transform: translateY(0) scale(0); opacity: 0; }
+  15%  { opacity: 0.9; transform: translateY(-20px) scale(1); }
+  85%  { opacity: 0.6; }
+  100% { transform: translateY(-110vh) scale(0.3); opacity: 0; }
+}
+
+/* ── Shell ── */
+.shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  padding: 20px;
+}
+
+/* ── Header ── */
+.header { text-align: center; }
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--blush);
+  margin-bottom: 6px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 6vw, 46px);
+  color: var(--deep);
+  line-height: 1.1;
+  position: relative;
+  display: inline-block;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--rose);
+  background: linear-gradient(135deg, var(--rose), var(--lilac));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Status pill ── */
+.status-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.status {
+  padding: 10px 26px;
+  border-radius: 99px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(244,114,182,0.18), 0 1px 4px rgba(0,0,0,0.06);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--deep);
+  letter-spacing: 0.5px;
+  transition: all 0.35s ease;
+  border: 1px solid rgba(244,114,182,0.2);
+}
+.status.x-turn  { border-color: rgba(244,114,182,0.5); box-shadow: 0 4px 20px rgba(244,114,182,0.3); }
+.status.o-turn  { border-color: rgba(168,85,247,0.5);  box-shadow: 0 4px 20px rgba(168,85,247,0.3); }
+.status.win     { background: linear-gradient(135deg, #fce7f3, #f5d0fe); font-size: 17px; font-weight: 700; }
+.status.draw    { background: #fff7ed; border-color: rgba(251,146,60,0.4); }
+
+/* ── Score bar ── */
+.scores {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid rgba(244,114,182,0.15);
+  min-width: 70px;
+}
+.score-box.x-box { border-color: rgba(244,114,182,0.35); }
+.score-box.o-box { border-color: rgba(168,85,247,0.35); }
+.score-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c4a8b8; }
+.score-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 700;
+  color: var(--deep);
+  transition: transform 0.2s ease;
+}
+.score-num.pop { transform: scale(1.4); }
+.score-sym { font-size: 18px; }
+.score-divider { color: #e9c5d9; font-size: 22px; font-weight: 300; }
+
+/* ── Board ── */
+.board-wrap {
+  position: relative;
+  padding: 4px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 110px);
+  grid-template-rows: repeat(3, 110px);
+  gap: 0;
+  position: relative;
+}
+
+/* Grid lines drawn with pseudo-elements */
+.board::before, .board::after,
+.board-wrap::before, .board-wrap::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, var(--rose), var(--lilac));
+  border-radius: 3px;
+  opacity: 0.55;
+}
+/* Vertical lines */
+.board::before { left: calc(110px - 1px); top: 8px; width: 3px; height: calc(100% - 16px); }
+.board::after  { left: calc(220px - 1px); top: 8px; width: 3px; height: calc(100% - 16px); }
+/* Horizontal lines */
+.board-wrap::before { top: calc(110px + 4px); left: 12px; height: 3px; width: calc(100% - 24px); }
+.board-wrap::after  { top: calc(220px + 4px); left: 12px; height: 3px; width: calc(100% - 24px); }
+
+.cell {
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  background: transparent;
+  transition: background 0.2s ease;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cell::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: transparent;
+  transition: background 0.25s ease, transform 0.25s ease;
+  transform: scale(0);
+}
+
+.cell:hover:not(.taken)::before {
+  background: rgba(244,114,182,0.08);
+  transform: scale(1);
+}
+
+.cell-inner {
+  position: relative;
+  z-index: 1;
+  font-size: 0;
+  width: 68px; height: 68px;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.cell.placed .cell-inner {
+  animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes popIn {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  70%  { transform: scale(1.18) rotate(4deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* X token */
+.cell.x .cell-inner::before,
+.cell.x .cell-inner::after {
+  content: '';
+  position: absolute;
+  width: 56px; height: 7px;
+  background: linear-gradient(90deg, var(--rose), #fb7cc0);
+  border-radius: 4px;
+  box-shadow: 0 0 18px rgba(244,114,182,0.6);
+}
+.cell.x .cell-inner::before { transform: rotate(45deg); }
+.cell.x .cell-inner::after  { transform: rotate(-45deg); }
+
+/* O token */
+.cell.o .cell-inner::before {
+  content: '';
+  position: absolute;
+  width: 54px; height: 54px;
+  border-radius: 50%;
+  border: 7px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--lilac), #7c3aed) border-box;
+  box-shadow: 0 0 18px rgba(168,85,247,0.5);
+}
+
+/* Win highlight */
+.cell.win-cell .cell-inner {
+  animation: winPulse 0.7s ease forwards;
+}
+@keyframes winPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.25) rotate(8deg); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1.08); }
+}
+.cell.win-cell::before {
+  transform: scale(1) !important;
+  background: rgba(244,114,182,0.12) !important;
+}
+
+/* ── Win line SVG overlay ── */
+#win-line {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+#win-line line {
+  stroke: url(#lineGrad);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  filter: drop-shadow(0 0 6px rgba(244,114,182,0.7));
+  animation: drawLine 0.55s ease forwards;
+}
+@keyframes drawLine {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Restart button ── */
+.restart {
+  padding: 13px 36px;
+  border: none;
+  border-radius: 99px;
+  background: linear-gradient(135deg, var(--rose), var(--lilac));
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(244,114,182,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.restart:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(244,114,182,0.45); }
+.restart:active { transform: translateY(0); }
+
+/* ── Confetti ── */
+.confetti-piece {
+  position: fixed;
+  width: 8px; height: 12px;
+  border-radius: 2px;
+  top: -20px;
+  pointer-events: none;
+  z-index: 999;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg) translateX(var(--drift)); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="sparkle-layer" id="sparkleLayer"></div>
+
+<div class="shell">
+  <div class="header">
+    <div class="eyebrow">✦ Two Player ✦</div>
+    <h1>Tic Tac Toe<br><em>Carys Edition</em></h1>
+  </div>
+
+  <div class="scores">
+    <div class="score-box x-box">
+      <div class="score-label">Player X</div>
+      <div class="score-num" id="scoreX">0</div>
+    </div>
+    <div class="score-divider">·</div>
+    <div class="score-box o-box">
+      <div class="score-label">Player O</div>
+      <div class="score-num" id="scoreO">0</div>
+    </div>
+  </div>
+
+  <div class="status-wrap">
+    <div class="status x-turn" id="status">✨ Player X's turn</div>
+  </div>
+
+  <div class="board-wrap">
+    <svg id="win-line" viewBox="0 0 330 330" style="display:none;">
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%"   stop-color="#f472b6"/>
+          <stop offset="100%" stop-color="#a855f7"/>
+        </linearGradient>
+      </defs>
+      <line id="win-line-el" x1="0" y1="0" x2="0" y2="0"/>
+    </svg>
+
+    <div class="board" id="board">
+      <!-- 9 cells -->
+    </div>
+  </div>
+
+  <button class="restart" id="restartBtn">↺ New Game</button>
+</div>
+
+<script>
+// ── Sparkles setup ──
+const sparkleLayer = document.getElementById('sparkleLayer');
+for (let i = 0; i < 28; i++) {
+  const s = document.createElement('div');
+  s.className = 'sparkle';
+  s.style.cssText = `
+    left: ${Math.random()*100}%;
+    bottom: -10px;
+    width: ${3 + Math.random()*5}px;
+    height: ${3 + Math.random()*5}px;
+    animation-duration: ${6 + Math.random()*10}s;
+    animation-delay: ${Math.random()*10}s;
+    background: ${['#f9a8d4','#e879f9','#c084fc','white','#fbcfe8'][Math.floor(Math.random()*5)]};
+    opacity: 0;
+  `;
+  sparkleLayer.appendChild(s);
+}
+
+// ── Game logic ──
+const boardEl = document.getElementById('board');
+const statusEl = document.getElementById('status');
+const restartBtn = document.getElementById('restartBtn');
+const winLineSvg = document.getElementById('win-line');
+const winLineEl = document.getElementById('win-line-el');
+const scoreXEl = document.getElementById('scoreX');
+const scoreOEl = document.getElementById('scoreO');
+
+let board = Array(9).fill('');
+let current = 'X';
+let running = true;
+let scores = { X: 0, O: 0 };
+
+const WIN_CONDITIONS = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
+];
+
+// Cell center coords (in SVG 330×330 space, each cell 110px)
+const CELL_CENTERS = [
+  [55,55],[165,55],[275,55],
+  [55,165],[165,165],[275,165],
+  [55,275],[165,275],[275,275]
+];
+
+// Build board cells
+for (let i = 0; i < 9; i++) {
+  const cell = document.createElement('div');
+  cell.className = 'cell';
+  cell.dataset.index = i;
+  const inner = document.createElement('div');
+  inner.className = 'cell-inner';
+  cell.appendChild(inner);
+  cell.addEventListener('click', () => handleClick(i));
+  boardEl.appendChild(cell);
+}
+
+function cells() { return boardEl.querySelectorAll('.cell'); }
+
+function handleClick(idx) {
+  if (!running || board[idx]) return;
+  board[idx] = current;
+  const cellEl = cells()[idx];
+  cellEl.classList.add(current.toLowerCase(), 'placed', 'taken');
+
+  const winner = checkWinner();
+  if (winner) {
+    highlightWin(winner);
+    statusEl.textContent = `🎉 Player ${current} Wins!`;
+    statusEl.className = 'status win';
+    scores[current]++;
+    updateScores(current);
+    running = false;
+    launchConfetti();
+  } else if (!board.includes('')) {
+    statusEl.textContent = "It's a draw! 🤝";
+    statusEl.className = 'status draw';
+    running = false;
+  } else {
+    current = current === 'X' ? 'O' : 'X';
+    statusEl.textContent = `${current === 'X' ? '✨' : '💜'} Player ${current}'s turn`;
+    statusEl.className = `status ${current.toLowerCase()}-turn`;
+  }
+}
+
+function checkWinner() {
+  for (const [a,b,c] of WIN_CONDITIONS) {
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) return [a,b,c];
+  }
+  return null;
+}
+
+function highlightWin([a,b,c]) {
+  const all = cells();
+  [a,b,c].forEach(i => all[i].classList.add('win-cell'));
+  // Draw line
+  const [x1,y1] = CELL_CENTERS[a];
+  const [x2,y2] = CELL_CENTERS[c];
+  winLineEl.setAttribute('x1', x1); winLineEl.setAttribute('y1', y1);
+  winLineEl.setAttribute('x2', x2); winLineEl.setAttribute('y2', y2);
+  winLineSvg.style.display = 'block';
+  // Restart animation
+  winLineEl.style.animation = 'none';
+  void winLineEl.offsetHeight;
+  winLineEl.style.animation = '';
+}
+
+function updateScores(winner) {
+  const el = winner === 'X' ? scoreXEl : scoreOEl;
+  el.textContent = scores[winner];
+  el.classList.add('pop');
+  setTimeout(() => el.classList.remove('pop'), 250);
+}
+
+function launchConfetti() {
+  const colors = ['#f472b6','#c084fc','#fb7cc0','#a855f7','#f9a8d4','#e879f9','white'];
+  for (let i = 0; i < 55; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    const drift = (Math.random() - 0.5) * 280;
+    p.style.cssText = `
+      left: ${20 + Math.random()*60}%;
+      background: ${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration: ${1.4 + Math.random()*1.4}s;
+      animation-delay: ${Math.random()*0.5}s;
+      --drift: ${drift}px;
+      transform: rotate(${Math.random()*360}deg);
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      width: ${5 + Math.random()*8}px;
+      height: ${5 + Math.random()*10}px;
+    `;
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 3000);
+  }
+}
+
+restartBtn.addEventListener('click', () => {
+  board = Array(9).fill('');
+  running = true;
+  current = 'X';
+  statusEl.textContent = '✨ Player X\'s turn';
+  statusEl.className = 'status x-turn';
+  winLineSvg.style.display = 'none';
+  cells().forEach(c => {
+    c.className = 'cell';
+    c.querySelector('.cell-inner').style.animation = 'none';
+  });
+});
+</script>
+</body>
+</html>
