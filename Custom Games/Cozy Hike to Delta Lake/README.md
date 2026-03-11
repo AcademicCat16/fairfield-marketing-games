@@ -1,4 +1,4 @@
-# 🎓 Campus Cozy Quest Match
+# 🎓 Cozy Hike to Delta Lake
 
 > Flip cards, match campus items, and complete your cozy study quest!
 
