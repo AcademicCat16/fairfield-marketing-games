@@ -1,0 +1,42 @@
+<div class="layout">
+  <div class="hud">
+    <h1>Lantern Meadow</h1>
+    <div class="row">
+      <div class="pill"><span>Score</span><strong id="score">0</strong></div>
+      <div class="pill"><span>Coins</span><strong id="coins">0</strong></div>
+      <div class="pill"><span>Backpack</span><strong id="cap">6</strong></div>
+    </div>
+
+    <div class="barWrap">
+      <div class="barLabel">Daylight</div>
+      <div class="bar"><div id="dayBar" class="barFill"></div></div>
+      <div class="barHint">Deliver 5 orders before the bar runs out.</div>
+    </div>
+
+    <div class="panel">
+      <h2>Orders</h2>
+      <ul id="orders" class="list"></ul>
+      <div class="hint">Walk to the Villager and press <b>E</b> to deliver.</div>
+    </div>
+
+    <div class="panel">
+      <h2>Inventory</h2>
+      <ul id="inv" class="list"></ul>
+      <div class="hint">Gather from bushes/pads. Craft at campfire (<b>E</b>).</div>
+    </div>
+
+    <div class="panel small">
+      <h2>Controls</h2>
+      <div class="hint">
+        Move: WASD/Arrows<br/>
+        Interact: E<br/>
+        Restart: R
+      </div>
+    </div>
+  </div>
+
+  <div class="gameWrap">
+    <canvas id="game" width="704" height="704"></canvas>
+    <div id="toast" class="toast"></div>
+  </div>
+</div>
