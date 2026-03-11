@@ -1,0 +1,36 @@
+<main>
+    <h1>Chilly Fruit Game 🍓➡️🧊</h1>
+    <div id="msg">Organize the fridge! Drag the fruit to the right.</div>
+
+    <div class="wrap">
+        <div class="fridge" id="leftFridge">
+            <svg width="100%" height="100%" viewBox="0 0 320 500">
+                <rect width="320" height="500" fill="#dbe9ff"/>
+                <rect x="20" y="40" width="280" height="360" fill="#f7fbff" stroke="#aac7ff" stroke-width="4" rx="10"/>
+                <rect x="30" y="120" width="260" height="6" fill="#aac7ff"/>
+                <rect x="30" y="200" width="260" height="6" fill="#aac7ff"/>
+                <rect x="30" y="280" width="260" height="6" fill="#aac7ff"/>
+                <circle cx="80" cy="170" r="18" fill="#ff4d4d"/>
+                <circle cx="140" cy="170" r="18" fill="#ffaa00"/>
+                <circle cx="200" cy="170" r="18" fill="#66cc66"/>
+                <rect x="60" y="320" width="60" height="40" fill="#ff884d"/>
+            </svg>
+            <div class="overlay" id="leftOverlay"></div>
+        </div>
+
+        <div class="fridge" id="rightFridge">
+            <svg width="100%" height="100%" viewBox="0 0 320 500">
+                <rect width="320" height="500" fill="#dbe9ff"/>
+                <rect x="20" y="40" width="280" height="360" fill="#f7fbff" stroke="#aac7ff" stroke-width="4" rx="10"/>
+                <rect x="30" y="120" width="260" height="6" fill="#aac7ff"/>
+                <rect x="30" y="200" width="260" height="6" fill="#aac7ff"/>
+                <rect x="30" y="280" width="260" height="6" fill="#aac7ff"/>
+            </svg>
+            <div class="overlay" id="rightOverlay"></div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button onclick="resetGame()">Restock Fridge</button>
+    </div>
+</main>
