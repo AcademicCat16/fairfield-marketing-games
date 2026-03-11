@@ -1,0 +1,61 @@
+<div class="app">
+<header class="top">
+<div>
+<div class="title">QB Target Toss</div>
+<div class="sub">Drag to aim. Release to throw. Hit targets for points + combos.</div>
+</div>
+<div class="hud">
+<div class="pill">Time: <span id="time">45</span>s</div>
+<div class="pill">Score: <span id="score">0</span></div>
+<div class="pill">Combo: <span id="combo">0</span>x</div>
+<div class="pill">Level: <span id="level">1</span></div>
+<div class="pill">Wind: <span id="wind">0</span></div>
+<button id="startBtn" class="btn">Start</button>
+<button id="resetBtn" class="btn ghost">Reset</button>
+</div>
+</header>
+<main class="main">
+<div class="left">
+<canvas id="game" width="860" height="520"></canvas>
+<div class="tips">
+<div><b>How to play:</b> Click/drag from the QB to set power + direction, release to
+throw.</div>
+<div><b>Scoring:</b> Bullseye = more points. Keep a combo (hits in a row) for
+multipliers.</div>
+<div><b>Level up:</b> Every 300 points, level increases (targets smaller + wind
+stronger).</div>
+</div>
+</div>
+<aside class="right">
+<div class="card">
+<div class="cardTitle">Top Scores (this browser)</div>
+<ol id="scores" class="scores"></ol>
+<div class="note">Saved automatically using localStorage.</div>
+</div>
+<div class="card">
+<div class="cardTitle">Settings</div>
+<label class="row">
+<span>Difficulty</span>
+<select id="difficulty">
+<option value="easy">Easy</option>
+<option value="normal" selected>Normal</option>
+<option value="hard">Hard</option>
+</select>
+</label>
+<label class="row">
+<span>Sound</span>
+<input id="sound" type="checkbox" checked />
+</label>
+</div>
+</aside>
+</main>
+<div id="overlay" class="overlay hidden">
+<div class="modal">
+<div class="modalTitle" id="endTitle">Time!</div>
+<div class="modalBody" id="endBody"></div>
+<div class="modalBtns">
+<button id="playAgain" class="btn">Play Again</button>
+</div>
+</div>
+</div>
+</div>
