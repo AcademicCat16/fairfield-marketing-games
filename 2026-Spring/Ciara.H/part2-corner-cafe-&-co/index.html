@@ -1,0 +1,113 @@
+<div class="particles-container"></div>
+<div class="rain-container" id="rainContainer"></div>
+
+<div class="app-container">
+    <header class="header">
+        <div class="header-content">
+            <h1 class="cafe-title">☕ Corner Café & Co.</h1>
+            <p class="cafe-subtitle">Where every cup tells a story</p>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="stats-dashboard">
+            <div class="stat-card money-card">
+                <span class="stat-icon">💰</span>
+                <div class="stat-info">
+                    <p class="stat-label">Money</p>
+                    <p class="stat-value" id="moneyDisplay">$0</p>
+                </div>
+            </div>
+            <div class="stat-card reputation-card">
+                <span class="stat-icon">⭐</span>
+                <div class="stat-info">
+                    <p class="stat-label">Reputation</p>
+                    <p class="stat-value" id="reputationDisplay">0</p>
+                </div>
+            </div>
+            <div class="stat-card followers-card">
+                <span class="stat-icon">👥</span>
+                <div class="stat-info">
+                    <p class="stat-label">Followers</p>
+                    <p class="stat-value" id="followersDisplay">0</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cafe-space">
+            <div class="cafe-interior">
+                <div class="counter-area">
+                    <div class="counter">
+                        <p class="counter-label">Your Counter</p>
+                        <div class="drinks-display" id="drinksDisplay">
+                            <div class="drink-item">☕ Latte</div>
+                            <div class="drink-item">🍓 Strawberry Matcha</div>
+                            <div class="drink-item">💜 Lavender Chai</div>
+                            <div class="drink-item">❄️ Iced Coffee</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decor-area" id="decorArea">
+                    <p class="decor-label">Café Décor</p>
+                    <div class="decor-items" id="decorItems"></div>
+                </div>
+
+                <div class="tables-area">
+                    <div class="table table-1">🪑</div>
+                    <div class="table table-2">🪑</div>
+                    <div class="table table-3">🪑</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="customer-zone">
+            <h2 class="section-title">Current Customer</h2>
+            <div class="customer-card" id="customerCard">
+                <div class="customer-empty">
+                    <p>Waiting for a customer...</p>
+                    <p class="small-text">☕✨</p>
+                </div>
+            </div>
+
+            <div class="drink-options" id="drinkOptions" style="display: none;">
+                <button class="drink-btn latte-btn" data-drink="Latte">
+                    <span class="drink-emoji">☕</span>
+                    <span class="drink-name">Latte</span>
+                </button>
+                <button class="drink-btn matcha-btn" data-drink="Strawberry Matcha">
+                    <span class="drink-emoji">🍓</span>
+                    <span class="drink-name">Strawberry Matcha</span>
+                </button>
+                <button class="drink-btn chai-btn" data-drink="Lavender Chai">
+                    <span class="drink-emoji">💜</span>
+                    <span class="drink-name">Lavender Chai</span>
+                </button>
+                <button class="drink-btn coffee-btn" data-drink="Iced Coffee">
+                    <span class="drink-emoji">❄️</span>
+                    <span class="drink-name">Iced Coffee</span>
+                </button>
+            </div>
+
+            <div class="feedback-message" id="feedbackMessage"></div>
+        </section>
+
+        <section class="action-buttons">
+            <button class="action-btn social-btn" id="socialBtn">
+                <span class="btn-icon">📱</span> Post on Social
+            </button>
+            <button class="action-btn decor-btn" id="decorBtn">
+                <span class="btn-icon">✨</span> Get Décor
+            </button>
+            <button class="action-btn rain-btn" id="rainBtn">
+                <span class="btn-icon">🌧️</span> Rain Mode
+            </button>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">Made with ☕ and ✨ | Relax and enjoy building your cozy café</p>
+    </footer>
+</div>
+
+<div class="music-indicator" id="musicIndicator" title="Imagining lo-fi café vibes...">🎵</div>
