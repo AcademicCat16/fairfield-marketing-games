@@ -1,67 +1,49 @@
-# ⚔️ Aric the Ironblade vs Draxis the Wickedblade
+# 🥚 Find the Egg!
 
-> A turn-based fantasy duel. Slash, strike, and guard your way to victory!
+> Watch the hats shuffle — then pick the one hiding the egg!
 
 ---
 
-## 🗡️ About
+## 🎩 About
 
-A browser-based turn-based RPG battle between Aric the Ironblade (you) and Draxis the Wickedblade (the enemy). Choose your action each turn, manage cooldowns, and bring Draxis down before he defeats you.
+Find the Egg is a browser-based shell game. An egg is shown under one of three hats, then hidden while the hats shuffle around. Track the right hat and click it to win!
 
 ---
 
 ## 🕹️ How to Play
 
-1. Open the page — the battle starts immediately
-2. Choose an action from the four buttons each turn
-3. After your action, Draxis automatically attacks
-4. Reduce Draxis's HP to 0 to win
-5. Don't let your own HP hit 0!
+1. Click **Start Game** to begin
+2. Watch carefully — the egg appears briefly under one hat
+3. The hats shuffle around 10 times
+4. Click the hat you think is hiding the egg
+5. The correct hat is revealed — see if you got it right!
+6. Click **Start Game** again to play another round
 
 ---
 
-## ⚔️ Actions
+## ⚙️ Game Details
 
-| Button | Effect | Cooldown |
-|--------|--------|----------|
-| ⚔️ **Slash** | Reliable damage every turn | None |
-| 💥 **Power Strike** | 1.5× damage multiplier | 2 turns |
-| 🌀 **Whirl Slash** | 1.2× damage multiplier | 3 turns |
-| 🛡️ **Guard** | Halves the next enemy attack | None |
+| Stat | Value |
+|------|-------|
+| Number of hats | 3 |
+| Egg shown for | 2 seconds before hiding |
+| Shuffle count | 10 swaps |
+| Shuffle speed | One swap every 600ms |
+| Total shuffle time | ~6 seconds |
 
-Damage formula: `max(1, floor(attacker.attack × multiplier - defender.defense))`
-
----
-
-## 📊 Character Stats
-
-| Stat | Aric (Player) | Draxis (Enemy) |
-|------|--------------|----------------|
-| Max HP | 28 | 32 |
-| Attack | 6 | 8 |
-| Defense | 5 | 4 |
-
-- Aric hits for **1–5 damage** base (Slash)
-- Power Strike hits for **4–5 damage**
-- Draxis hits for **3–4 damage** base, reduced to **1–2** if you Guard
-
----
-
-## ⏱️ Cooldowns
-
-- **Power Strike** is disabled for **2 turns** after use
-- **Whirl Slash** is disabled for **3 turns** after use
-- Hover over a greyed-out button to see remaining cooldown turns
+- The egg position is tracked correctly through every swap
+- You can't click hats while shuffling is in progress
+- After guessing, the correct hat is always revealed regardless of whether you were right or wrong
 
 ---
 
 ## 🗂️ File Structure
 
-This game is fully self-contained in a **single HTML file** — no separate CSS or JS files needed.
-
 ```
-aric-vs-draxis/
-├── index.html    # Everything: styles, HTML structure, and script in one file
+find-the-egg/
+├── index.html    # Game HTML (body content)
+├── style.css     # Hat shapes, egg, dark background, animations
+├── script.js     # Shuffle logic, egg tracking, guess checking
 └── README.md     # You are here
 ```
 
@@ -69,26 +51,26 @@ aric-vs-draxis/
 
 ## 🖥️ How to Run
 
-1. Open `index.html` in any modern browser
-2. No installation, no dependencies, no internet required
+1. Place all files in the same folder
+2. Open `index.html` in any modern browser
+3. No installation or internet connection required
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **HTML** — battle layout, HP bars, action buttons, combat log
-- **Inline CSS** — dark RPG theme, HP bar transitions, hit flash animation
-- **Vanilla JavaScript** — turn system, damage calculation, cooldown tracking, win/lose detection
+- **HTML/CSS** — hat and egg shapes drawn entirely with CSS (no images)
+- **CSS transitions** — smooth left-position sliding for hat movement
+- **Vanilla JavaScript** — shuffle logic, position tracking, win/lose detection
 
 ---
 
 ## 💡 Tips
 
-- **Guard** is most effective when your HP is low — halving Draxis's 8 attack can save you
-- Use **Power Strike** early to get ahead on HP, then manage cooldowns
-- **Slash** every turn when specials are on cooldown — never skip your turn
-- Draxis has more HP but lower defense — consistent damage beats trading hits
+- Focus on one hat the whole time rather than trying to follow the egg directly
+- The shuffle speed is fixed — it doesn't get faster, so every round is equally fair
+- If you miss the egg reveal, just start a new game
 
 ---
 
-*Strike hard. Guard smart. Defeat the Wickedblade. ⚔️*
+*Eyes on the hat. Don't blink. 🥚🎩*
