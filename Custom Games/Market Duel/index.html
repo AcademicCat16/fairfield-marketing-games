@@ -1,0 +1,78 @@
+<div class="wrap">
+  <header>
+    <h1>Market Duel</h1>
+    <div class="badge">Goal: reach <b>$200,000</b> net worth by <b>Day 30</b> (villain may hack the market)</div>
+  </header>
+  <div class="grid">
+
+    <!-- HERO -->
+    <section class="card char">
+      <h2>Player</h2>
+      <img id="heroImg" alt="Hero character" />
+      <div class="meta">
+        <div class="name">The Trader</div>
+        <div class="desc">Buy low, sell high. Keep cash ready—hacks can crash the market fast.</div>
+      </div>
+    </section>
+
+    <!-- CENTER -->
+    <main class="card">
+      <h2>Market</h2>
+      <div class="center">
+        <div class="row">
+          <div class="stat">
+            <div class="k">Day</div>
+            <div class="v" id="day">1 <small>/ 30</small></div>
+          </div>
+          <div class="stat">
+            <div class="k">Price</div>
+            <div class="v" id="price">$100.00</div>
+          </div>
+          <div class="stat">
+            <div class="k">Event</div>
+            <div class="v" id="event">Normal</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="stat">
+            <div class="k">Cash</div>
+            <div class="v" id="cash">$50,000</div>
+          </div>
+          <div class="stat">
+            <div class="k">Shares</div>
+            <div class="v" id="shares">0</div>
+          </div>
+          <div class="stat">
+            <div class="k">Net Worth</div>
+            <div class="v" id="net">$50,000</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="primary" id="buyBtn">Buy 10 shares</button>
+          <button class="primary" id="sellBtn">Sell 10 shares</button>
+          <button id="holdBtn">Hold</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+        <div class="hint">
+          Tip: HACK events cause big drops. Keep some cash to buy the dip—or avoid getting wiped out.
+        </div>
+        <div class="log" id="log"></div>
+      </div>
+    </main>
+
+    <!-- VILLAIN -->
+    <section class="card char">
+      <h2>Opponent</h2>
+      <img id="villainImg" alt="Villain character" />
+      <div class="meta">
+        <div class="name">The Market Hacker</div>
+        <div class="desc">Randomly triggers hacks that spike volatility and can dump the price.</div>
+      </div>
+    </section>
+
+  </div>
+  <footer>
+    <div>Images load from GitHub (no local setup needed).</div>
+    <div>Customize settings in the JS panel (goal, days, hack chance, trade size).</div>
+  </footer>
+</div>
