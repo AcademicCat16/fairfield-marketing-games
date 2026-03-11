@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f6f3ea;
+  text-align: center;
+}
+ 
+#world {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 20px auto;
+  background: linear-gradient(#e6f7e6, #cde5cd);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+ 
+#dog {
+  position: absolute;
+  width: 70px;
+  left: 20px;
+  top: 300px;
+}
+ 
+#bowl {
+  position: absolute;
+  right: 40px;
+  top: 20px;
+  font-size: 40px;
+}
+ 
+.wall {
+  position: absolute;
+  background: #8fbf8f;
+  border-radius: 10px;
+}
+ 
+#message {
+  font-size: 20px;
+  margin-top: 10px;
+  color: #6b4f2b;
+}
+ 
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  animation: fall 1.5s linear forwards;
+}
+ 
+@keyframes fall {
+  to {
+	transform: translateY(200px) rotate(360deg);
+	opacity: 0;
+  }
+}
+ 
