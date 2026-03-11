@@ -1,0 +1,57 @@
+body {
+margin: 0;
+background: #1a2a1a;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+overflow: hidden;
+}
+#game-container {
+position: relative;
+border: 10px solid #3e2723;
+border-radius: 15px;
+box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+canvas {
+/* Deep Forest Green Gradient */
+background: linear-gradient(#2d5a27, #1b331b);
+display: block;
+}
+#ui {
+position: absolute;
+top: 15px;
+left: 20px;
+color: #fff;
+font-family: 'Arial', sans-serif;
+font-size: 24px;
+font-weight: bold;
+text-shadow: 2px 2px #000;
+}
+#overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.85);
+display: none;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: white;
+z-index: 100;
+font-family: sans-serif;
+}
+button {
+padding: 15px 40px;
+font-size: 22px;
+background: #ff69b4;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 50px;
+font-weight: bold;
+transition: 0.2s;
+}
+button:hover { transform: scale(1.1); background: #ff1493; }
