@@ -1,0 +1,110 @@
+/* Importing an arcade-style font */
+
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+
+body {
+
+  margin: 0;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  height: 100vh;
+
+  background: #111; /* Dark background to frame the game */
+
+  color: white;
+
+  overflow: hidden;
+
+  user-select: none;
+
+}
+
+
+#game-container {
+
+  position: relative;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+
+  border: 4px solid #fff;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+
+}
+
+
+#gameCanvas {
+
+  /* This CSS creates the complex, realistic gradient sky */
+
+  background: linear-gradient(180deg, 
+
+              #1e3c72 0%,    /* Deep blue night */
+
+              #2a5298 30%,   /* Mid sunset blue */
+
+              #ff7e5f 60%,   /* Orange sunset */
+
+              #feb47b 80%,   /* Soft yellow */
+
+              #27ae60 80.1%, /* Dark Green Grass start */
+
+              #1e8449 100%); /* Deep Grass ground */
+
+  display: block;
+
+}
+
+
+#scoreboard {
+
+  position: absolute;
+
+  top: 15px;
+
+  width: 100%;
+
+  text-align: center;
+
+  font-size: 56px;
+
+  font-family: 'Anton', sans-serif; /* Game-like font */
+
+  color: #fff;
+
+  text-shadow: 4px 4px 0px #000, 0 0 10px rgba(255,255,255,0.8);
+
+  pointer-events: none;
+
+  letter-spacing: 5px;
+
+}
+
+
+.controls-hint {
+
+  position: absolute;
+
+  bottom: 5px;
+
+  left: 10px;
+
+  color: #fff;
+
+  font-size: 14px;
+
+  font-family: Arial, sans-serif;
+
+  opacity: 0.7;
+
+  text-shadow: 1px 1px 1px #000;
+
+}
