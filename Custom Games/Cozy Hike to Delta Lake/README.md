@@ -1,72 +1,75 @@
-# 🎓 Cozy Hike to Delta Lake
+# 🐾 Cozy Hike to Delta Lake
 
-> Flip cards, match campus items, and complete your cozy study quest!
-
----
-
-## 📚 About
-
-Campus Cozy Quest Match is a browser-based memory card matching game with a cozy college aesthetic. Flip cards to find matching pairs of campus-themed emoji, race against the timer, and complete a randomly assigned quest before the board is clear.
+> Help your puppy survive a 45-second hike through the Wyoming wilderness!
 
 ---
 
-## 🕹️ How to Play
+## 🏔️ About
 
-1. Choose a board size to start your quest
-2. Click any card to flip it and reveal the emoji
-3. Click a second card — if both match, they stay face-up ✅
-4. If they don't match, both flip back after a short delay
-5. Match all pairs to complete the quest!
+Cozy Hike to Delta Lake is a browser-based endless runner set in the scenic trails of Jackson Hole, Wyoming. Your puppy walks automatically toward Delta Lake — your only job is to jump over rocks in the way. Survive 45 seconds without losing all 3 hearts to reach the lake!
 
 ---
 
-## 📐 Board Sizes
+## 🕹️ Controls
 
-| Size | Cards | Pairs |
-|------|-------|-------|
-| 3 × 4 | 12 | 6 |
-| 4 × 4 | 16 | 8 |
-| 4 × 5 | 20 | 10 |
-| 5 × 6 | 30 | 15 |
-
----
-
-## 📊 Stats
-
-| Stat | Description |
-|------|-------------|
-| **Time** | Elapsed time since the board started (mm:ss) |
-| **Moves** | Total pairs of cards attempted (matched + mismatched) |
-| **Quest** | Randomly assigned quest name for the current round |
+| Key | Action |
+|-----|--------|
+| `Space` | Jump |
+| `G` | Jump |
+| **Start Hike** button | Begin the game |
+| **Hike Again 🐾** button | Restart after game over or win |
 
 ---
 
-## 🗺️ Quests
+## 🎯 How to Play
 
-A random quest is assigned each game — purely for flavour:
-
-- ☕ **Coffee Run** — Match all pairs to fuel your study day
-- 📖 **Library Helper** — Match all pairs to return books
-- 📝 **Note Passing** — Match pairs to help a classmate
-- 🔑 **Lost & Found** — Match pairs to return keycards
+1. Click **Start Hike** to begin
+2. The puppy walks automatically — you can't stop or slow down
+3. Press `Space` or `G` to jump over incoming rocks
+4. You have **3 hearts** — each rock hit costs one
+5. Lose all 3 hearts and the hike restarts
+6. Survive **45 seconds** to reach Delta Lake and win!
 
 ---
 
-## 🎒 Card Emoji Set
+## 💓 Lives
 
-18 campus-themed emoji are used as card faces (shuffled each game):
+| State | Display |
+|-------|---------|
+| Full health | ❤️❤️❤️ |
+| One hit | ❤️❤️🖤 |
+| Two hits | ❤️🖤🖤 |
+| Game over | 💔 |
 
-📚 🎒 ✏️ 📝 ☕ 🧋 🎧 💻 🖊️ 📖 🗒️ 🔖 📐 📌 🖇️ 🗃️ ⏰ 🎓
+---
+
+## ⚙️ Game Details
+
+- Rocks spawn every **2.2 seconds** and scroll left at **5px per frame**
+- Rock sizes vary slightly each spawn for variety
+- The puppy jumps very high with a slow fall — giving you plenty of airtime
+- You are safe from a rock if you are more than **55px above ground** when it passes
+- A progress bar fills over the 45 seconds showing your trail progress
+- The puppy flashes on hit; rocks flash red when they connect
+
+---
+
+## 🏁 Win & Lose Conditions
+
+| Condition | Result |
+|-----------|--------|
+| Survive 45 seconds | 🏔️ Your puppy reached Delta Lake! |
+| Lose all 3 hearts | 💔 Too many rocks — try again! |
 
 ---
 
 ## 🗂️ File Structure
 
 ```
-campus-cozy-quest-match/
+cozy-hike-delta-lake/
 ├── index.html    # Game HTML (body content)
-├── style.css     # Dark campus theme, 3D card flip, overlay panels
-├── script.js     # Board generation, flip logic, timer, quest system
+├── style.css     # Scenery, puppy, trail, HUD styling
+├── script.js     # Jump physics, rock spawning, collision, timer
 └── README.md     # You are here
 ```
 
@@ -76,25 +79,25 @@ campus-cozy-quest-match/
 
 1. Place all files in the same folder
 2. Open `index.html` in any modern browser
-3. No installation or internet connection required
+3. No installation or internet connection required — all graphics are CSS
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **HTML Table** — card grid layout
-- **CSS3** — 3D card flip via `transform-style: preserve-3d`, dark radial gradient background
-- **Vanilla JavaScript** — board generation, match detection, timer, quest assignment
+- **HTML/CSS** — fully CSS-drawn scene (mountains, trees, trail, sun, puppy)
+- **Vanilla JavaScript** — jump physics (rise/hang/fall), rock spawning, collision detection, timer
+- No images, no external libraries
 
 ---
 
 ## 💡 Tips
 
-- Mismatched cards stay visible for **850ms** — use that window to memorise both positions
-- Matched cards count toward moves just like mismatches — fewer moves is better
-- The emoji pool is shuffled before each game, so the same emojis appear in different positions every round
-- Try the **5 × 6** board for the biggest challenge — 15 pairs to find!
+- Jump early — the puppy rises fast but the fall is slow, so you have plenty of hang time
+- You only need to be 55px off the ground to clear a rock — you don't need to wait for peak height
+- Rocks are always the same speed, so once you get the rhythm down, timing gets easier
+- The progress bar fills over 45 seconds — watch it to gauge how close you are to the lake!
 
 ---
 
-*Study hard. Match fast. Complete the quest. 🎓✨*
+*One paw in front of the other. Delta Lake awaits. 🐾🏔️*
