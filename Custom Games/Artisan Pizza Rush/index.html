@@ -1,0 +1,110 @@
+<div class="app">
+  <header class="topbar">
+    <div class="title">
+      <h1>Artisan Pizza Rush</h1>
+      <p>Match the order exactly, then serve to the Chef!</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Score</div>
+        <div id="score" class="value">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Streak</div>
+        <div id="streak" class="value">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Orders</div>
+        <div><span id="done">0</span>/<span id="total">10</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="panel order">
+      <h2>Current Order</h2>
+      <div class="orderCard">
+        <div class="orderLine">
+          <span class="chip">Size</span>
+          <span id="orderSize" class="orderValue">—</span>
+        </div>
+        <div class="orderLine">
+          <span class="chip">Sauce</span>
+          <span id="orderSauce" class="orderValue">—</span>
+        </div>
+        <div class="orderLine">
+          <span class="chip">Cheese</span>
+          <span id="orderCheese" class="orderValue">—</span>
+        </div>
+        <div class="divider"></div>
+        <div class="orderLine toppingsLine">
+          <span class="chip">Toppings</span>
+          <div id="orderToppings" class="toppingsList">—</div>
+        </div>
+        <div class="divider"></div>
+        <div id="message" class="message">Build the pizza below.</div>
+        <div class="actions">
+          <button id="newOrderBtn" class="btn secondary">New Game</button>
+          <button id="resetBtn" class="btn danger">Clear</button>
+          <button id="serveBtn" class="btn">Serve</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel kitchen">
+      <h2>Your Pizza</h2>
+      <div class="pizzaWrap">
+        <div id="pizza" class="pizza size-md sauce-tomato cheese-yes">
+          <div class="crust"></div>
+          <div class="sauce"></div>
+          <div class="cheese"></div>
+          <div id="toppingLayer" class="toppings"></div>
+        </div>
+      </div>
+
+      <div class="builder">
+        <div class="row">
+          <div class="group">
+            <div class="groupTitle">Size</div>
+            <div class="segmented">
+              <button class="segBtn" data-size="sm">S</button>
+              <button class="segBtn active" data-size="md">M</button>
+              <button class="segBtn" data-size="lg">L</button>
+            </div>
+          </div>
+          <div class="group">
+            <div class="groupTitle">Sauce</div>
+            <div class="segmented">
+              <button class="segBtn active" data-sauce="tomato">Tomato</button>
+              <button class="segBtn" data-sauce="alfredo">White</button>
+              <button class="segBtn" data-sauce="pesto">Pesto</button>
+            </div>
+          </div>
+          <div class="group">
+            <div class="groupTitle">Cheese</div>
+            <div class="segmented">
+              <button class="segBtn active" data-cheese="yes">Yes</button>
+              <button class="segBtn" data-cheese="no">No</button>
+            </div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="groupTitle">Toppings</div>
+          <div id="toppingButtons" class="toppingButtons"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="chef" class="chef hidden">
+    <div class="chefFigure">👨‍🍳</div>
+    <div class="chefBubble">
+      <div id="chefText" class="chefText">Ciao! Let's see your pizza!</div>
+      <div class="chefMeta">
+        <span id="chefRating" class="chefRating">—</span>
+        <button id="chefClose" class="chefClose">×</button>
+      </div>
+    </div>
+  </div>
+</div>
