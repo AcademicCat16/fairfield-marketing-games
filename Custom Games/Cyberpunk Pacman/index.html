@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NEON CHOMP — Blue Pac-Man</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --neon-blue: #00e5ff;
+  --neon-pink: #ff2d78;
+  --neon-green: #39ff14;
+  --bg: #020210;
+  --dot: #ff6eb4;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Share Tech Mono', monospace;
+  overflow: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.game-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: 30px;
+  letter-spacing: 8px;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue), 0 0 40px rgba(0,229,255,0.4);
+  animation: titlePulse 3s ease-in-out infinite;
+  text-align: center;
+}
+
+.tagline {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: rgba(0,229,255,0.4);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: -8px;
+}
+
+@keyframes titlePulse {
+  0%,100% { text-shadow: 0 0 10px var(--neon-blue), 0 0 30px var(--neon-blue), 0 0 60px rgba(0,229,255,0.3); }
+  50% { text-shadow: 0 0 20px var(--neon-blue), 0 0 50px var(--neon-blue), 0 0 100px rgba(0,229,255,0.55); }
+}
+
+.stats-bar {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 8px 22px;
+  border: 1px solid rgba(0,229,255,0.18);
+  border-radius: 4px;
+  background: rgba(0,229,255,0.03);
+}
+
+.stat { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.stat-label { font-size: 9px; letter-spacing: 3px; color: rgba(0,229,255,0.38); text-transform: uppercase; }
+.stat-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--neon-blue);
+  text-shadow: 0 0 10px var(--neon-blue);
+  transition: all 0.15s ease;
+  min-width: 40px;
+  text-align: center;
+}
+.stat-value.pop { transform: scale(1.3); color: var(--neon-green); text-shadow: 0 0 15px var(--neon-green); }
+
+.divider { width: 1px; height: 28px; background: linear-gradient(180deg, transparent, rgba(0,229,255,0.25), transparent); }
+
+#game-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+#gameCanvas {
+  display: block;
+  border-radius: 6px;
+  border: 2px solid rgba(0,229,255,0.28);
+  box-shadow: 0 0 25px rgba(0,229,255,0.12), 0 0 70px rgba(0,229,255,0.06);
+  background: var(--bg);
+}
+
+/* CRT scanlines */
+#game-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 3px);
+  pointer-events: none;
+  border-radius: 6px;
+  z-index: 5;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2,2,16,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  border-radius: 6px;
+  z-index: 10;
+}
+
+#overlay .ov-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 6px;
+  color: var(--neon-blue);
+  text-shadow: 0 0 20px var(--neon-blue);
+}
+
+#overlay .ov-sub { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
+
+.click-btn {
+  padding: 10px 26px;
+  border: 1px solid var(--neon-blue);
+  border-radius: 3px;
+  color: var(--neon-blue);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: rgba(0,229,255,0.05);
+  animation: clickPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes clickPulse {
+  0%,100% { box-shadow: 0 0 8px rgba(0,229,255,0.3); }
+  50% { box-shadow: 0 0 20px rgba(0,229,255,0.6); }
+}
+
+#status {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  min-height: 28px;
+  text-align: center;
+  text-shadow: 0 0 20px currentColor;
+}
+#status.caught { color: var(--neon-pink); }
+#status.win { color: var(--neon-green); }
+
+#resetBtn {
+  padding: 10px 28px;
+  border: 1px solid var(--neon-pink);
+  border-radius: 3px;
+  background: rgba(255,45,120,0.07);
+  color: var(--neon-pink);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 12px rgba(255,45,120,0.2);
+}
+#resetBtn:hover { background: rgba(255,45,120,0.16); box-shadow: 0 0 25px rgba(255,45,120,0.4); transform: translateY(-2px); }
+
+.controls-hint {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(0,229,255,0.22);
+  text-transform: uppercase;
+}
+
+.key {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 1px solid rgba(0,229,255,0.18);
+  border-radius: 2px;
+  color: rgba(0,229,255,0.45);
+  font-size: 9px;
+  margin: 0 2px;
+}
+</style>
+</head>
+<body>
+<div class="game-shell">
+  <div>
+    <div class="title">NEON CHOMP</div>
+    <div class="tagline">Cyberpunk Pac-Man Edition</div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-label">Score</div>
+      <div class="stat-value" id="score">0</div>
+    </div>
+    <div class="divider"></div>
+    <div class="stat">
+      <div class="stat-label">Dots Left</div>
+      <div class="stat-value" id="dotsLeft">--</div>
+    </div>
+  </div>
+
+  <div id="game-wrapper">
+    <canvas id="gameCanvas" width="380" height="220"></canvas>
+    <div id="overlay">
+      <div class="ov-title">NEON CHOMP</div>
+      <div class="ov-sub">Collect all dots · Avoid ghosts</div>
+      <div class="click-btn">Click to Begin</div>
+    </div>
+  </div>
+
+  <div id="status"></div>
+  <button id="resetBtn" style="display:none;">↺ Play Again</button>
+  <div class="controls-hint">
+    <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>
+    or Arrow Keys to move
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+const dotsEl = document.getElementById('dotsLeft');
+const statusEl = document.getElementById('status');
+const resetBtn = document.getElementById('resetBtn');
+const overlay = document.getElementById('overlay');
+
+const CELL = 20;
+const INITIAL_MAP = [
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1],
+  [1,0,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,0,1],
+  [1,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1],
+  [1,1,1,1,0,1,1,1,2,1,2,1,1,1,0,1,1,1,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,0,1,1,0,1,1,1,1,1,1,1,1,1,0,1,1,0,1],
+  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+// Resize canvas to match map
+canvas.width = INITIAL_MAP[0].length * CELL;
+canvas.height = INITIAL_MAP.length * CELL;
+
+let map = [], score = 0, gameOver = false, gameStarted = false;
+let pacman, ghosts, gameTimer, frameCount = 0, particles = [], flashTimer = 0;
+
+const GHOST_CONFIGS = [
+  { sx: 1,  sy: 9, color: '#ff2d78', glow: '#ff2d78' },
+  { sx: 17, sy: 9, color: '#ff80cc', glow: '#ff80cc' },
+  { sx: 9,  sy: 7, color: '#7df9ff', glow: '#7df9ff' }
+];
+
+function countDots(m) { return m.flat().filter(v => v === 0).length; }
+
+function spawnParticles(gx, gy, color, n = 6) {
+  for (let i = 0; i < n; i++) {
+    const a = (Math.PI * 2 / n) * i + Math.random() * 0.5;
+    const sp = 1.5 + Math.random() * 2.5;
+    particles.push({
+      x: gx * CELL + CELL / 2, y: gy * CELL + CELL / 2,
+      vx: Math.cos(a) * sp, vy: Math.sin(a) * sp,
+      life: 1, decay: 0.06 + Math.random() * 0.04,
+      size: 2 + Math.random() * 2.5, color
+    });
+  }
+}
+
+function resetGame() {
+  map = INITIAL_MAP.map(r => [...r]);
+  score = 0; scoreEl.textContent = 0;
+  gameOver = false;
+  statusEl.textContent = ''; statusEl.className = '';
+  resetBtn.style.display = 'none';
+  particles = []; flashTimer = 0; frameCount = 0;
+  dotsEl.textContent = countDots(map);
+
+  pacman = { x: 9, y: 1, nextDir: null, curDir: 'ArrowRight', mouthOpen: 0.15, mouthDir: 1 };
+  ghosts = GHOST_CONFIGS.map((c, i) => ({
+    x: c.sx, y: c.sy, color: c.color, glow: c.glow, wobble: i * 0.9
+  }));
+
+  clearTimeout(gameTimer);
+  if (gameStarted) runGame();
+  draw();
+}
+
+function drawBackground() {
+  ctx.fillStyle = '#020210';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.globalAlpha = 0.05;
+  ctx.strokeStyle = '#00e5ff';
+  ctx.lineWidth = 0.5;
+  for (let x = 0; x <= canvas.width; x += CELL) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+  }
+  for (let y = 0; y <= canvas.height; y += CELL) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+}
+
+function drawWall(x, y) {
+  ctx.fillStyle = '#050520';
+  ctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+
+  const top    = map[y-1]?.[x] !== 1;
+  const bottom = map[y+1]?.[x] !== 1;
+  const left   = map[y]?.[x-1] !== 1;
+  const right  = map[y]?.[x+1] !== 1;
+
+  ctx.strokeStyle = '#00e5ff';
+  ctx.lineWidth = 2;
+  ctx.shadowBlur = 14;
+  ctx.shadowColor = '#00e5ff';
+  ctx.beginPath();
+  if (top)    { ctx.moveTo(x*CELL, y*CELL);         ctx.lineTo((x+1)*CELL, y*CELL); }
+  if (bottom) { ctx.moveTo(x*CELL, (y+1)*CELL);     ctx.lineTo((x+1)*CELL, (y+1)*CELL); }
+  if (left)   { ctx.moveTo(x*CELL, y*CELL);         ctx.lineTo(x*CELL, (y+1)*CELL); }
+  if (right)  { ctx.moveTo((x+1)*CELL, y*CELL);     ctx.lineTo((x+1)*CELL, (y+1)*CELL); }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+}
+
+function drawDot(x, y) {
+  const cx = x * CELL + CELL / 2, cy = y * CELL + CELL / 2;
+  const pulse = 0.8 + Math.sin(Date.now() / 400 + x + y * 2) * 0.2;
+  ctx.globalAlpha = pulse;
+  ctx.beginPath();
+  ctx.arc(cx, cy, 2.8, 0, Math.PI * 2);
+  ctx.fillStyle = '#ff6eb4';
+  ctx.shadowBlur = 10;
+  ctx.shadowColor = '#ff6eb4';
+  ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 0;
+}
+
+function drawPacman() {
+  const p = pacman;
+  const cx = p.x * CELL + CELL / 2, cy = p.y * CELL + CELL / 2;
+  const r = CELL / 2 - 2;
+  const dirMap = { ArrowRight: 0, ArrowLeft: Math.PI, ArrowUp: -Math.PI/2, ArrowDown: Math.PI/2 };
+  const face = dirMap[p.curDir] ?? 0;
+
+  p.mouthOpen += 0.09 * p.mouthDir;
+  if (p.mouthOpen > 0.25) p.mouthDir = -1;
+  if (p.mouthOpen < 0.02) p.mouthDir = 1;
+
+  // Glow aura
+  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r + 10);
+  grad.addColorStop(0, 'rgba(0,229,255,0.3)');
+  grad.addColorStop(1, 'rgba(0,229,255,0)');
+  ctx.beginPath(); ctx.arc(cx, cy, r + 10, 0, Math.PI * 2);
+  ctx.fillStyle = grad; ctx.fill();
+
+  // Body
+  ctx.shadowBlur = 18; ctx.shadowColor = '#00e5ff';
+  ctx.fillStyle = '#00e5ff';
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.arc(cx, cy, r, face + p.mouthOpen * Math.PI, face + Math.PI * 2 - p.mouthOpen * Math.PI);
+  ctx.closePath();
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Eye
+  const ea = face - Math.PI / 4;
+  const ex = cx + Math.cos(ea) * r * 0.48, ey = cy + Math.sin(ea) * r * 0.48;
+  ctx.beginPath(); ctx.arc(ex, ey, 2.2, 0, Math.PI * 2);
+  ctx.fillStyle = '#020210'; ctx.fill();
+}
+
+function drawGhost(g) {
+  const cx = g.x * CELL + CELL / 2, cy = g.y * CELL + CELL / 2;
+  const r = CELL / 2 - 2;
+  g.wobble += 0.08;
+  const wy = Math.sin(g.wobble) * 1.8;
+
+  // Glow
+  ctx.globalAlpha = 0.28;
+  ctx.beginPath(); ctx.arc(cx, cy + wy, r + 7, 0, Math.PI * 2);
+  ctx.fillStyle = g.glow;
+  ctx.shadowBlur = 14; ctx.shadowColor = g.glow;
+  ctx.fill();
+  ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+
+  // Body
+  ctx.fillStyle = g.color;
+  ctx.shadowBlur = 10; ctx.shadowColor = g.color;
+  ctx.beginPath();
+  ctx.arc(cx, cy - 1 + wy, r, Math.PI, 0);
+  const base = g.y * CELL + CELL - 2 + wy;
+  const px0 = g.x * CELL + 2;
+  ctx.lineTo(px0 + CELL - 4, base);
+  const segs = 4, sw = (CELL - 4) / segs;
+  for (let i = segs; i >= 0; i--) {
+    ctx.lineTo(px0 + i * sw, i % 2 === 0 ? base - 3 : base);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Eyes with pupils tracking player
+  for (const ox of [-4, 4]) {
+    ctx.fillStyle = 'white';
+    ctx.beginPath();
+    ctx.ellipse(cx + ox, cy - 2 + wy, 3, 3.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+    const dx = pacman.x - g.x, dy = pacman.y - g.y;
+    const len = Math.hypot(dx, dy) || 1;
+    ctx.fillStyle = '#120040';
+    ctx.beginPath();
+    ctx.arc(cx + ox + dx/len*1.5, cy - 2 + wy + dy/len*1.5, 1.8, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground();
+
+  map.forEach((row, y) => row.forEach((cell, x) => {
+    if (cell === 1) drawWall(x, y);
+    else if (cell === 0) drawDot(x, y);
+  }));
+
+  // Particles
+  particles.forEach(p => {
+    ctx.globalAlpha = p.life * 0.85;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 8; ctx.shadowColor = p.color;
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+
+  ghosts.forEach(drawGhost);
+  drawPacman();
+
+  if (flashTimer > 0) {
+    ctx.globalAlpha = (flashTimer / 10) * 0.45;
+    ctx.fillStyle = '#ff2d78';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 1;
+    flashTimer--;
+  }
+}
+
+function updatePacman() {
+  const dm = { ArrowUp:[0,-1], ArrowDown:[0,1], ArrowLeft:[-1,0], ArrowRight:[1,0] };
+  const d = dm[pacman.nextDir];
+  if (d && map[pacman.y + d[1]]?.[pacman.x + d[0]] !== 1) {
+    pacman.x += d[0]; pacman.y += d[1];
+    pacman.curDir = pacman.nextDir;
+    if (map[pacman.y][pacman.x] === 0) {
+      map[pacman.y][pacman.x] = 2;
+      score += 10;
+      scoreEl.textContent = score;
+      scoreEl.classList.add('pop');
+      setTimeout(() => scoreEl.classList.remove('pop'), 150);
+      spawnParticles(pacman.x, pacman.y, '#ff6eb4', 5);
+      const rem = countDots(map);
+      dotsEl.textContent = rem;
+      if (rem === 0) {
+        gameOver = true;
+        statusEl.textContent = '✦ STAGE CLEAR ✦'; statusEl.className = 'win';
+        resetBtn.style.display = 'inline-block';
+        spawnParticles(pacman.x, pacman.y, '#39ff14', 20);
+      }
+    }
+  }
+}
+
+function updateGhosts() {
+  const dirs = [{x:0,y:-1},{x:0,y:1},{x:-1,y:0},{x:1,y:0}];
+  ghosts.forEach(g => {
+    let valid = dirs.filter(d => map[g.y+d.y]?.[g.x+d.x] !== 1);
+    valid.sort((a, b) =>
+      Math.abs((g.x+a.x)-pacman.x) + Math.abs((g.y+a.y)-pacman.y) -
+      Math.abs((g.x+b.x)-pacman.x) - Math.abs((g.y+b.y)-pacman.y)
+    );
+    const move = Math.random() > 0.25 ? valid[0] : valid[Math.floor(Math.random()*valid.length)];
+    if (move) { g.x += move.x; g.y += move.y; }
+    if (g.x === pacman.x && g.y === pacman.y) {
+      gameOver = true; flashTimer = 12;
+      statusEl.textContent = '✖ CAUGHT ✖'; statusEl.className = 'caught';
+      resetBtn.style.display = 'inline-block';
+      spawnParticles(pacman.x, pacman.y, '#ff2d78', 18);
+    }
+  });
+}
+
+document.getElementById('game-wrapper').addEventListener('click', () => {
+  if (!gameStarted) {
+    gameStarted = true;
+    overlay.style.display = 'none';
+    resetGame();
+  }
+});
+
+const keyMap = {
+  arrowup:'ArrowUp', w:'ArrowUp', arrowdown:'ArrowDown', s:'ArrowDown',
+  arrowleft:'ArrowLeft', a:'ArrowLeft', arrowright:'ArrowRight', d:'ArrowRight'
+};
+window.addEventListener('keydown', e => {
+  const mapped = keyMap[e.key.toLowerCase()];
+  if (mapped) { pacman.nextDir = mapped; e.preventDefault(); }
+});
+
+resetBtn.addEventListener('click', resetGame);
+
+function runGame() {
+  if (gameOver) return;
+  frameCount++;
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    p.vx *= 0.92; p.vy *= 0.92;
+    p.life -= p.decay;
+  });
+  particles = particles.filter(p => p.life > 0);
+  if (frameCount % 2 === 0) updatePacman();
+  if (frameCount % 4 === 0) updateGhosts();
+  draw();
+  gameTimer = setTimeout(runGame, 100);
+}
+
+resetGame();
+</script>
+</body>
+</html>
