@@ -1,105 +1,118 @@
-# 🐷 Barnyard Blitz
+# 🌊 Deep Dive — Ocean Trivia Challenge
 
-> You are the Pig. Dodge mud, weave through fences, and race to the barn first!
-
----
-
-## 🏁 About
-
-Barnyard Blitz is a browser-based top-down racing game set on a barnyard obstacle course. You control the Pig and race against the Cow and Duck AI opponents across a 960×540 field. Mud slows you down, fences block your path, and hay bales bump your speed — first to the finish line wins!
+> Answer ocean trivia to descend into the darkest depths of the sea!
 
 ---
 
-## 🕹️ Controls
+## 🌊 About
 
-| Key | Action |
-|-----|--------|
-| `↑` / `W` | Move up |
-| `↓` / `S` | Move down |
-| `←` / `A` | Move left |
-| `→` / `D` | Move right |
-| **Start** button | Begin the race |
-| **Reset** button | Reset all positions |
-
-Diagonal movement is supported — hold two direction keys at once.
+Deep Dive is a single-file browser-based trivia game with a deep-sea exploration theme. Answer 10 ocean questions to descend from the Sunlight Zone all the way to the Abyss. Each correct answer earns points and builds your streak multiplier — wrong answers cost a life. Lose all 3 lives and the dive ends early.
 
 ---
 
-## 🎯 How to Play
+## 🕹️ How to Play
 
-1. Click **Start** to begin the race
-2. Move the Pig (🐷) with arrow keys or WASD
-3. Avoid obstacles or push through them carefully
-4. Reach the white finish line on the right side first to win
-5. If an AI opponent crosses first, they win — click **Reset** to try again
-
----
-
-## 🐄 Racers
-
-| Racer | Emoji | Base Speed | Controlled by |
-|-------|-------|-----------|---------------|
-| Pig | 🐷 | 180 px/s | You (player) |
-| Cow | 🐮 | 155 px/s | AI |
-| Duck | 🦆 | 165 px/s | AI |
-
-The Pig is the fastest — but obstacles can slow you enough for the AI to overtake!
+1. Click **Begin Descent** on the start screen
+2. Read each question and pick the correct answer (A–D)
+3. A fact about the topic is revealed after every answer
+4. Click **Dive Deeper →** to continue to the next question
+5. Reach question 10 and surface with the highest score possible!
 
 ---
 
-## 🚧 Obstacles
+## 🦭 Lives & Scoring
 
-| Type | Colour | Effect |
-|------|--------|--------|
-| 🟫 **Mud** | Brown | Speed reduced to **40%** |
-| 🟤 **Fence** | Dark brown | Speed reduced to **20%**, pushes racer back |
-| 🟡 **Hay** | Yellow | Speed reduced to **70%** |
-
-Collision is calculated using AABB vs circle — you're affected the moment your racer overlaps an obstacle.
+| Mechanic | Detail |
+|----------|--------|
+| Starting lives | 3 🦭 |
+| Wrong answer | −1 life, streak resets to 0 |
+| Correct answer (no streak) | +100 pts |
+| Correct answer (2x streak) | +120 pts |
+| Correct answer (3x+ streak) | +150 pts |
+| Game ends early if | All 3 lives are lost |
 
 ---
 
-## 🤖 AI Behaviour
+## 🌊 Ocean Zones (Depth Progression)
 
-Both Cow and Duck move forward at a constant pace with a gentle sine-wave vertical drift to simulate wandering. They are affected by the same obstacle collision and speed penalties as the player.
+| Questions | Zone | Depth |
+|-----------|------|-------|
+| 1–2 | Sunlight Zone | 0–200m |
+| 3–4 | Twilight Zone | 200–1,000m |
+| 5–6 | Midnight Zone | 1,000–4,000m |
+| 7–8 | Abyssal Zone | 4,000–6,000m |
+| 9–10 | The Abyss | 6,000m+ |
+
+The depth bar and zone label update with each question, tracking your descent to 11,000m (Challenger Deep).
+
+---
+
+## 🏅 Ranks (End Screen)
+
+| Correct Answers | Rank |
+|-----------------|------|
+| 9–10 | Abyss Master |
+| 7–8 | Deep Sea Expert |
+| 5–6 | Twilight Diver |
+| 3–4 | Surface Swimmer |
+| 0–2 | Rookie Diver |
+
+---
+
+## 🧠 Questions
+
+All 10 questions cover real ocean science — shuffled randomly each game:
+
+- Largest ocean, ocean surface coverage
+- Mariana Trench / Challenger Deep
+- Octopus biology (3 hearts, blue blood)
+- Ocean exploration statistics
+- Bioluminescence
+- Thermohaline circulation
+- The Gulf Stream
+- The bathypelagic midnight zone
+- Hydrothermal vents and chemosynthesis
+
+Each question includes a detailed fun fact shown after answering.
 
 ---
 
 ## 🗂️ File Structure
 
+This game is fully self-contained in a **single HTML file** — no external JS or CSS files needed.
+
 ```
-barnyard-blitz/
-├── index.html    # Game HTML (body content)
-├── style.css     # Dark panel theme, legend pills, canvas styling
-├── script.js     # Game loop, obstacle collision, AI movement, win detection
-└── README.md     # You are here
+deep-dive-ocean-trivia/
+├── ocean-trivia-game.html    # Everything: styles, HTML, questions, and script
+└── README.md                 # You are here
 ```
 
 ---
 
 ## 🖥️ How to Run
 
-1. Place all files in the same folder
-2. Open `index.html` in any modern browser
-3. No installation or internet connection required — all graphics use emoji and Canvas fills
+1. Open `ocean-trivia-game.html` in any modern browser
+2. An **internet connection** is needed to load the Google Fonts (Space Mono + Playfair Display)
+3. If offline, the game falls back to system fonts
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **HTML5 Canvas** — field, obstacles, racer emoji, finish line
-- **Vanilla JavaScript** — delta-time game loop, AABB vs circle collision, AI sine drift
-- **CSS** — dark panel layout, legend colour pills
+- **HTML/CSS** — animated particles, depth bar, zone card, glassmorphism question card
+- **Vanilla JavaScript** — question shuffle, streak multiplier, rank calculation, screen transitions
+- **Google Fonts** — Space Mono (monospace UI) + Playfair Display (headings)
+- **Web Audio** — none (no sound)
 
 ---
 
 ## 💡 Tips
 
-- The Pig's 180 px/s speed gives you a big advantage — don't waste it in mud
-- Fences push you back as well as slowing you — don't run straight into them
-- The AI drifts vertically but always moves forward — cut a clean path to stay ahead
-- Diagonal movement covers ground faster — use it to navigate around obstacle corners
+- Build a **3x streak** as early as possible — +150 pts per correct answer adds up fast
+- Questions are shuffled each game, so zone labels are cosmetic — difficulty isn't tied to question order
+- Wrong answers reveal the correct answer and a fun fact — worth reading before diving again
+- A perfect run (10/10, no lives lost, full streak): 100 + 120 + 150×8 = **1,420 pts**
 
 ---
 
-*Oink your way to the finish. Don't get muddy. 🐷🏁*
+*Dive deep. Answer true. Surface as an Abyss Master. 🌊🦭*
