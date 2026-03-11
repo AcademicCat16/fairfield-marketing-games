@@ -1,0 +1,112 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+text-align: center;
+color: white;
+background: radial-gradient(circle at center, #111 0%, #000 100%);
+}
+#arena {
+
+padding: 50px 0;
+background: radial-gradient(circle at center, #222 0%, #000 75%);
+}
+.scoreboard {
+display: flex;
+justify-content: center;
+gap: 80px;
+font-size: 26px;
+margin-bottom: 20px;
+}
+#court {
+position: relative;
+width: 940px;
+height: 500px;
+margin: auto;
+background: linear-gradient(90deg, #d18b47, #c37a33);
+border: 6px solid white;
+box-shadow: 0 0 60px rgba(255,255,255,0.4);
+overflow: hidden;
+}
+/* Center line */
+#court::before {
+content: "";
+position: absolute;
+width: 4px;
+height: 100%;
+background: white;
+left: 50%;
+transform: translateX(-50%);
+}
+/* Center circle */
+#court::after {
+content: "";
+position: absolute;
+width: 150px;
+height: 150px;
+border: 4px solid white;
+border-radius: 50%;
+top: 50%;
+left: 50%;
+
+transform: translate(-50%, -50%);
+}
+/* Paint */
+.paint-left,
+.paint-right {
+position: absolute;
+width: 160px;
+height: 240px;
+border: 4px solid white;
+top: 130px;
+}
+.paint-left { left: 0; }
+.paint-right { right: 0; }
+/* Restricted circle */
+.restricted-left,
+.restricted-right {
+position: absolute;
+width: 120px;
+height: 120px;
+border: 4px solid white;
+border-radius: 50%;
+top: 190px;
+}
+.restricted-left {
+left: -60px;
+clip-path: inset(0 0 0 50%);
+}
+.restricted-right {
+right: -60px;
+clip-path: inset(0 50% 0 0);
+}
+/* Hoops */
+.hoop {
+position: absolute;
+width: 45px;
+height: 85px;
+border: 6px solid red;
+border-radius: 50%;
+
+top: 205px;
+}
+.left-hoop { left: -25px; }
+.right-hoop { right: -25px; }
+/* Players */
+.player {
+position: absolute;
+width: 95px;
+height: 135px;
+object-fit: contain;
+z-index: 5;
+}
+#player1 { left: 80px; top: 190px; }
+#player2 { right: 80px; top: 190px; }
+/* Ball */
+#ball {
+position: absolute;
+width: 24px;
+height: 24px;
+background: orange;
+border-radius: 50%;
+z-index: 6;
+}
