@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="style.css">
+
+<h1>Village Shop</h1>
+<div class="stats">
+  <p>Gold: <span id="gold">50</span></p>
+</div>
+<div class="actions">
+  <h2>Gather</h2>
+  <button onclick="gatherWood()">Gather Wood</button>
+  <button onclick="gatherHerbs()">Gather Herbs</button>
+  <h2>Craft</h2>
+  <button onclick="craftPotion()">Craft Potion (2 Herbs)</button>
+  <button onclick="craftPlank()">Craft Plank (2 Wood)</button>
+  <h2>Sell</h2>
+  <button onclick="sellPotion()">Sell Potion (+15g)</button>
+  <button onclick="sellPlank()">Sell Plank (+10g)</button>
+</div>
+<div class="inventory">
+  <h2>Inventory</h2>
+  <p>Wood: <span id="wood">0</span></p>
+  <p>Herbs: <span id="herbs">0</span></p>
+  <p>Potions: <span id="potions">0</span></p>
+  <p>Planks: <span id="planks">0</span></p>
+</div>
+
+<script src="script.js"></script>
