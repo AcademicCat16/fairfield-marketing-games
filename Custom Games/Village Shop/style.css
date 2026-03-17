@@ -1,0 +1,23 @@
+body{
+  font-family: monospace;
+  background:#1f1f1f;
+  color:white;
+  text-align:center;
+}
+
+button{
+  margin:5px;
+  padding:10px;
+  background:#3c8c3c;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#4fa64f;
+}
+
+.actions, .inventory{
+  margin-top:20px;
+}
