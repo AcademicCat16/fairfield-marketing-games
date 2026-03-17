@@ -1,41 +1,54 @@
-let score = 0;
-let time = 30;
-let gameInterval;
-let starInterval;
-function startGame(){
-score = 0;
-time = 30;
-document.getElementById("score").textContent = score;
-document.getElementById("time").textContent = time;
-const board = document.getElementById("board");
-board.innerHTML = "";
-gameInterval = setInterval(function(){
-time--;
-document.getElementById("time").textContent = time;
-if(time <= 0){
-clearInterval(gameInterval);
-clearInterval(starInterval);
-alert("Game Over! You caught " + score + " stars ⭐");
-}
-},1000);
-starInterval = setInterval(createStar,800);
-}
-function createStar(){
-const board = document.getElementById("board");
-const star = document.createElement("div");
-star.textContent = "⭐";
-star.classList.add("star");
-const x = Math.random() * 360;
-const y = Math.random() * 360;
-star.style.left = x + "px";
-star.style.top = y + "px";
-star.onclick = function(){
-score++;
-document.getElementById("score").textContent = score;
-star.remove();
-}
-board.appendChild(star);
-setTimeout(function(){
-star.remove();
-},1500);
+var score    = 0;
+var timeLeft = 30;
+var running  = false;
+var gTimer   = null;
+var sTimer   = null;
+
+function startGame() {
+  if (running) return;
+  running  = true;
+  score    = 0;
+  timeLeft = 30;
+
+  document.getElementById("score").textContent = 0;
+  document.getElementById("time").textContent  = 30;
+  document.getElementById("board").innerHTML   = "";
+  document.getElementById("msg").style.display = "none";
+
+  clearInterval(gTimer);
+  clearInterval(sTimer);
+
+  gTimer = setInterval(function() {
+    timeLeft--;
+    document.getElementById("time").textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(gTimer);
+      clearInterval(sTimer);
+      running = false;
+      document.getElementById("board").innerHTML = "";
+      var m = document.getElementById("msg");
+      m.innerHTML = "⭐ Game over! You caught <b>" + score + "</b> star" + (score !== 1 ? "s" : "") + "! ⭐<br><small style='opacity:0.65'>Press Start Game to play again</small>";
+      m.style.display = "block";
+    }
+  }, 1000);
+
+  sTimer = setInterval(function() {
+    if (!running) return;
+    var board = document.getElementById("board");
+    var star  = document.createElement("div");
+    star.className   = "star";
+    star.textContent = "⭐";
+    star.style.left  = Math.floor(Math.random() * 350) + "px";
+    star.style.top   = Math.floor(Math.random() * 350) + "px";
+    star.onclick = function() {
+      if (!running) return;
+      score++;
+      document.getElementById("score").textContent = score;
+      if (star.parentNode) star.parentNode.removeChild(star);
+    };
+    board.appendChild(star);
+    setTimeout(function() {
+      if (star.parentNode) star.parentNode.removeChild(star);
+    }, 1500);
+  }, 800);
 }
