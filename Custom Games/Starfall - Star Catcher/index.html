@@ -1,67 +1,7 @@
-<h1>⭐ Star Catcher ⭐</h1>
-<p>Score: <span id="score">0</span></p>
-<p>Time: <span id="time">30</span></p>
-<button id="btn">Start Game</button>
-<div id="board"></div>
-<div id="msg"></div>
-
-<script>
-var score    = 0;
-var timeLeft = 30;
-var running  = false;
-var gTimer   = null;
-var sTimer   = null;
-
-document.getElementById("btn").addEventListener("click", function() {
-  if (running) return;
-  running  = true;
-  score    = 0;
-  timeLeft = 30;
-
-  document.getElementById("score").textContent = 0;
-  document.getElementById("time").textContent  = 30;
-  document.getElementById("board").innerHTML   = "";
-  document.getElementById("msg").style.display = "none";
-  document.getElementById("btn").textContent   = "Running...";
-  document.getElementById("btn").disabled      = true;
-
-  clearInterval(gTimer);
-  clearInterval(sTimer);
-
-  gTimer = setInterval(function() {
-    timeLeft--;
-    document.getElementById("time").textContent = timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(gTimer);
-      clearInterval(sTimer);
-      running = false;
-      document.getElementById("board").innerHTML      = "";
-      document.getElementById("btn").textContent      = "Play Again";
-      document.getElementById("btn").disabled         = false;
-      var m       = document.getElementById("msg");
-      m.innerHTML = "⭐ Game over! You caught <b>" + score + "</b> star" + (score !== 1 ? "s" : "") + "! ⭐";
-      m.style.display = "block";
-    }
-  }, 1000);
-
-  sTimer = setInterval(function() {
-    if (!running) return;
-    var board = document.getElementById("board");
-    var star  = document.createElement("div");
-    star.className   = "star";
-    star.textContent = "⭐";
-    star.style.left  = Math.floor(Math.random() * 350) + "px";
-    star.style.top   = Math.floor(Math.random() * 350) + "px";
-    star.addEventListener("click", function() {
-      if (!running) return;
-      score++;
-      document.getElementById("score").textContent = score;
-      if (star.parentNode) star.parentNode.removeChild(star);
-    });
-    board.appendChild(star);
-    setTimeout(function() {
-      if (star.parentNode) star.parentNode.removeChild(star);
-    }, 1500);
-  }, 800);
-});
-</script>
+<canvas id="game"></canvas>
+<div class="hud">
+  <div>Score: <span id="score">0</span></div>
+  <div>Lives: <span id="lives">3</span></div>
+  <button id="restart">Restart</button>
+</div>
+<div class="help">Move: ← → or A/D &bull; Mobile: drag &bull; Catch the ⭐</div>
