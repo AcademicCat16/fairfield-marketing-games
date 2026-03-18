@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #87CEEB, #1E90FF);
+  color: white;
+}
+
+h1 {
+  margin-top: 30px;
+}
+
+#gameBox {
+  margin-top: 40px;
+}
+
+#score, #energy {
+  font-size: 20px;
+  margin: 10px;
+}
+
+#result {
+  margin: 20px;
+  font-size: 22px;
+  min-height: 30px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #1E90FF;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+#restartBtn {
+  display: none;
+  margin-top: 15px;
+}
