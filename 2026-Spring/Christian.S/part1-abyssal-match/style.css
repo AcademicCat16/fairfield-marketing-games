@@ -1,0 +1,124 @@
+html, body {
+  min-height: 100%;
+  margin: 0;
+  background: linear-gradient(180deg, #001219 0%, #005f73 100%);
+}
+body {
+  font-family: Arial, sans-serif;
+  color: #e9d8a6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 0 40px;
+  min-height: 100vh;
+}
+#wrapper {
+  width: 820px;
+  max-width: 98vw;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.35);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 0 50px rgba(0,245,255,0.12);
+  text-align: center;
+}
+.game-title h1 {
+  color: #e0f7fa;
+  text-shadow: 2px 2px #006064;
+  margin: 0 0 4px;
+  font-size: 2.4rem;
+}
+.game-title h4 {
+  color: #b2ebf2;
+  margin: 0 0 18px;
+  font-weight: 400;
+}
+.inner { margin-bottom: 16px; }
+#start {
+  background: #005f73;
+  border: 2px solid #94d2bd;
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 12px 36px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 14px;
+}
+#start:hover {
+  background: #0a9396;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #94d2bd;
+}
+.stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+.label {
+  font-size: 1.4rem;
+  color: #94d2bd;
+  padding: 8px 16px;
+  min-height: 40px;
+}
+#gameboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.gameTile {
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  perspective: 600px;
+}
+.tile-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  border-radius: 12px;
+}
+.gameTile.flipped .tile-inner,
+.gameTile.matched .tile-inner {
+  transform: rotateY(180deg);
+}
+.tile-front,
+.tile-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+.tile-front {
+  background: rgba(0,95,115,0.7);
+  border: 2px solid #94d2bd;
+  color: #b2ebf2;
+}
+.tile-front:hover {
+  background: rgba(10,147,150,0.7);
+  box-shadow: 0 0 12px rgba(148,210,189,0.4);
+}
+.tile-back {
+  background: rgba(0,18,25,0.8);
+  border: 2px solid #0a9396;
+  transform: rotateY(180deg);
+}
+.gameTile.matched .tile-back {
+  border-color: #ffd166;
+  box-shadow: 0 0 14px rgba(255,209,102,0.5);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to   { opacity: 1; transform: scale(1); }
+}
+#gameboard { animation: fadeIn 0.4s ease; }
