@@ -1,0 +1,22 @@
+body { background-color: #f0f7da; font-family: 'Courier New', Courier, monospace; }
+
+#safari-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    justify-content: center;
+}
+
+.patch {
+    width: 100px;
+    height: 100px;
+    background-color: #78ab46; /* Grass Green */
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px; /* For Emojis */
+}
+
+.found { background-color: #e2d1a9; } /* Sand color like AC paths */
