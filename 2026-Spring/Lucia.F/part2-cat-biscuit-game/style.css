@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background: linear-gradient(to bottom, #87ceeb, #90ee90);
+    border: 4px solid #333;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.ui-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 100;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.score, .timer {
+    color: #333;
+}
+
+.score {
+    color: #ff6b6b;
+}
+
+.timer {
+    color: #4ecdc4;
+}
+
+.cat {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: url('https://raw.githubusercontent.com/luciaferriso-del/game-assets/refs/heads/main/06617c7e-d6d0-485c-9dde-fe7ed382d94f.png') center/contain no-repeat;
+    left: 370px;
+    top: 495px;
+    transition: all 0.1s linear;
+}
+
+.cat.right {
+    transform: scaleX(1);
+}
+
+.cat.left {
+    transform: scaleX(-1);
+}
+
+.biscuit {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><rect x="3" y="3" width="24" height="24" rx="4" fill="%23d4a574"/><circle cx="8" cy="8" r="2" fill="%23c9953a"/><circle cx="15" cy="10" r="1.5" fill="%23c9953a"/><circle cx="22" cy="9" r="2" fill="%23c9953a"/><circle cx="10" cy="17" r="1.5" fill="%23c9953a"/><circle cx="18" cy="18" r="2" fill="%23c9953a"/><circle cx="25" cy="20" r="1.5" fill="%23c9953a"/></svg>') center/contain no-repeat;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    z-index: 200;
+    display: none;
+    color: white;
+}
+
+.game-over h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ff6b6b;
+}
+
+.game-over p {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #4ecdc4;
+}
+
+.game-over button {
+    padding: 12px 30px;
+    font-size: 18px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.game-over button:hover {
+    background: #764ba2;
+}
+
+.instructions {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    background: rgba(255, 255, 255, 0.7);
+    padding: 8px 12px;
+    border-radius: 5px;
+}
