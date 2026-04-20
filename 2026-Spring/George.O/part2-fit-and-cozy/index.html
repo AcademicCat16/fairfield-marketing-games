@@ -1,0 +1,123 @@
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fdf6ec;
+  --card: #fff9f1;
+  --accent: #e07a5f;
+  --accent2: #81b29a;
+  --accent3: #f2cc8f;
+  --text: #3d405b;
+  --muted: #9a8e7e;
+  --border: #e8ddd0;
+}
+body {
+  font-family: 'Georgia', serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  color: var(--text);
+}
+h1 { font-size: 2rem; color: var(--accent); text-align: center; margin-bottom: 4px; }
+.tagline { color: var(--muted); font-size: 0.9rem; text-align: center; margin-bottom: 20px; font-style: italic; }
+.hud { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+.hud-box { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 10px 20px; text-align: center; min-width: 90px; }
+.hud-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.hud-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+.main-area { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 680px; width: 100%; }
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; }
+.panel h2 { font-size: 1rem; color: var(--text); margin-bottom: 14px; letter-spacing: 0.3px; }
+.char-area { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; padding: 24px; }
+.avatar { font-size: 5rem; line-height: 1; flex-shrink: 0; transition: transform 0.3s; }
+.avatar.bounce { animation: bounce 0.5s ease; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 40%{transform:translateY(-18px)} }
+.char-info { flex: 1; }
+.char-name { font-size: 1.3rem; color: var(--accent); margin-bottom: 8px; }
+.bar-wrap { margin-bottom: 10px; }
+.bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+.bar-track { height: 10px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+.bar-energy  .bar-fill { background: var(--accent3); }
+.bar-fitness .bar-fill { background: var(--accent2); }
+.bar-mood    .bar-fill { background: var(--accent); }
+.activity-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.act-btn {
+  background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px;
+  padding: 12px 8px; cursor: pointer; text-align: center;
+  transition: all 0.15s; font-family: 'Georgia', serif;
+}
+.act-btn:hover { border-color: var(--accent); background: #fff3ec; transform: scale(1.03); }
+.act-btn:active { transform: scale(0.97); }
+.act-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.act-emoji { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+.act-name { font-size: 0.8rem; font-weight: 700; color: var(--text); }
+.act-desc { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+.log-area { grid-column: 1 / -1; }
+.log-list { max-height: 130px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; }
+.log-item { font-size: 0.82rem; color: var(--text); padding: 6px 10px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--accent2); }
+.log-item .log-time { color: var(--muted); font-size: 0.7rem; float: right; }
+.shop-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.shop-item { background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; padding: 10px; font-size: 0.78rem; display: flex; flex-direction: column; gap: 4px; }
+.shop-item-top { display: flex; justify-content: space-between; align-items: center; }
+.shop-name { font-weight: 700; color: var(--text); }
+.shop-cost { color: var(--accent); font-weight: 700; font-size: 0.75rem; }
+.shop-desc { color: var(--muted); font-size: 0.68rem; }
+.buy-btn { margin-top: 6px; padding: 5px 0; background: var(--accent); color: white; border: none; border-radius: 8px; font-size: 0.75rem; cursor: pointer; font-family: 'Georgia', serif; transition: background 0.15s; }
+.buy-btn:hover { background: #c9614a; }
+.buy-btn:disabled { background: var(--border); color: var(--muted); cursor: not-allowed; }
+.day-btn { margin-top: 18px; padding: 12px 40px; background: var(--accent2); color: white; border: none; border-radius: 50px; font-size: 1rem; cursor: pointer; font-family: 'Georgia', serif; font-weight: 700; transition: background 0.15s, transform 0.1s; }
+.day-btn:hover { background: #6a9a82; transform: scale(1.04); }
+.toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--text); color: white; padding: 10px 24px; border-radius: 50px; font-size: 0.9rem; opacity: 0; transition: all 0.35s; pointer-events: none; z-index: 999; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.subtitle-tag { font-size: 0.68rem; color: var(--muted); text-align: center; margin-top: 18px; font-style: italic; }
+</style>
+
+<h1>🌿 Fit &amp; Cozy</h1>
+<p class="tagline">A cozy fitness life simulator — take care of George!</p>
+
+<div class="hud">
+  <div class="hud-box"><div class="hud-label">Day</div><div class="hud-value" id="dayNum">1</div></div>
+  <div class="hud-box"><div class="hud-label">Coins</div><div class="hud-value" id="coins">50</div></div>
+  <div class="hud-box"><div class="hud-label">Score</div><div class="hud-value" id="score">0</div></div>
+</div>
+
+<div class="main-area">
+  <div class="panel char-area">
+    <div class="avatar" id="avatar">🧍</div>
+    <div class="char-info">
+      <div class="char-name">George</div>
+      <div class="bar-wrap bar-energy">
+        <div class="bar-label"><span>Energy</span><span id="energyVal">70%</span></div>
+        <div class="bar-track"><div class="bar-fill" id="energyBar" style="width:70%"></div></div>
+      </div>
+      <div class="bar-wrap bar-fitness">
+        <div class="bar-label"><span>Fitness</span><span id="fitnessVal">30%</span></div>
+        <div class="bar-track"><div class="bar-fill" id="fitnessBar" style="width:30%"></div></div>
+      </div>
+      <div class="bar-wrap bar-mood">
+        <div class="bar-label"><span>Mood</span><span id="moodVal">60%</span></div>
+        <div class="bar-track"><div class="bar-fill" id="moodBar" style="width:60%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>Today's Activities</h2>
+    <div class="activity-grid" id="actGrid"></div>
+  </div>
+  <div class="panel">
+    <h2>Wellness Shop</h2>
+    <div class="shop-grid" id="shopGrid"></div>
+  </div>
+  <div class="panel log-area">
+    <h2>Activity Log</h2>
+    <div class="log-list" id="logList"></div>
+  </div>
+</div>
+
+<button class="day-btn" id="dayBtn">End Day &amp; Rest →</button>
+<p class="subtitle-tag">George's A5 — Part 2: Top-Down Development | Original game built from scratch in HTML/CSS/JS</p>
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
